@@ -1,0 +1,18 @@
+Herein lies information for the CoopManager that I am trying to build.
+
+Desired Architecture: MV*
+
+Architecture Layout:
+-------------------------
+V: PyGTK
+-------------------------
+*: Python
+-------------------------
+M: MySQL
+
+
+File Sizes:
+python-2.7.3.msi 		- 15.1 MB
+pygtk-2.24.0.wind32-py2.7.msi 	- 816 KB
+mysql-installer-5.5.25a.0.msi	- 199 MB
+sqllite (zipped)		- 1.1 MB
