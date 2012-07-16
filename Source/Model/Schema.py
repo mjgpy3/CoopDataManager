@@ -50,4 +50,20 @@ CREATE TABLE Class(
 );
 """]
 
-TransactionTableQueries = []
+TransactionTableQueries = ["""
+CREATE TABLE IsEnrolledIn(
+  StudentId INTEGER,
+  ClassId INTEGER,
+  PRIMARY KEY(StudentId, ClassId),
+  FOREIGN KEY(StudentID) REFERENCES Student(ROWID),
+  FOREIGN KEY(ClassId) REFERENCES Class(ROWID)
+);
+""", """
+CREATE TABLE Teaches(
+  ParentId INTEGER,
+  ClassId INTEGER,
+  PRIMARY KEY(ParentId, ClassId),
+  FOREIGN KEY(ParentId) REFERENCES Parent(ROWID),
+  FOREIGN KEY(ClassId) REFERENCES Class(ROWID)
+);
+"""]
