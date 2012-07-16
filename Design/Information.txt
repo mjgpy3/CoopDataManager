@@ -8,11 +8,9 @@ V: PyGTK
 -------------------------
 *: Python
 -------------------------
-M: MySQL
+M: Sqlite3
 
 
 File Sizes:
-python-2.7.3.msi 		- 15.1 MB
-pygtk-2.24.0.wind32-py2.7.msi 	- 816 KB
-mysql-installer-5.5.25a.0.msi	- 199 MB
-sqllite (zipped)		- 1.1 MB
+python-2.7.3.msi 			- 15.1 MB
+pygtk-all-in-one-2.24.0.win32-py2.7.msi - 32.0 MB
