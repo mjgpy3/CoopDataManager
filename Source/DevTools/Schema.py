@@ -23,7 +23,7 @@ CREATE TABLE Address(
 """, """
 CREATE TABLE Parent(
   LastName TEXT,
-  FirstName TExt,
+  FirstName TEXT,
   Phone1 INTEGER,
   Phone2 INTEGER,
   Email TEXT,
@@ -44,6 +44,7 @@ CREATE TABLE Student(
 CREATE TABLE Class(
   Room TEXT,
   Time TEXT,
+  Cost REAL,
   SemesterId INTEGER,
   FOREIGN KEY(SemesterId) REFERENCES Semester(ROWID)
 );
