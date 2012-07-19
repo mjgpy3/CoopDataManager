@@ -9,26 +9,13 @@ ModelName = 'test'
 
 TableCreationQueries = ["""
 CREATE TABLE Semester(
-  BeginDate TEXT,
-  EndDate TEXT
-);
-""", """
-CREATE TABLE Address(
-  Line1 TEXT,
-  Line2 TEXT,
-  City TEXT,
-  State TEXT,
-  Zip INTEGER 
+  FallOrSpring TEXT,
+  Year INTEGER
 );
 """, """
 CREATE TABLE Parent(
   LastName TEXT,
-  FirstName TEXT,
-  Phone1 INTEGER,
-  Phone2 INTEGER,
-  Email TEXT,
-  AddressId INTEGER,
-  FOREIGN KEY(AddressId) REFERENCES Address(ROWID)
+  FirstName TEXT
 );
 """, """
 CREATE TABLE Student(
@@ -42,9 +29,12 @@ CREATE TABLE Student(
 );
 """, """
 CREATE TABLE Class(
-  Room TEXT,
-  Time TEXT,
+  Name TEXT,
+  Hour TEXT,
   Cost REAL,
+  AgeMin INTEGER,
+  AgeMax INTEGER,
+  MaxNumberOfStudents INTEGER,
   SemesterId INTEGER,
   FOREIGN KEY(SemesterId) REFERENCES Semester(ROWID)
 );
@@ -60,6 +50,14 @@ CREATE TABLE IsEnrolledIn(
 );
 """, """
 CREATE TABLE Teaches(
+  ParentId INTEGER,
+  ClassId INTEGER,
+  PRIMARY KEY(ParentId, ClassId),
+  FOREIGN KEY(ParentId) REFERENCES Parent(ROWID),
+  FOREIGN KEY(ClassId) REFERENCES Class(ROWID)
+);
+""", """
+CREATE TABLE IsAHelperFor(
   ParentId INTEGER,
   ClassId INTEGER,
   PRIMARY KEY(ParentId, ClassId),

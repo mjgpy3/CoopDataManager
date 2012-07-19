@@ -4,7 +4,7 @@
 # Date: Sat Jul 14 23:45:12 EDT 2012
 # 
 # 
-
+"""
 import Schema, sqlite3
 
 connectionToModel = sqlite3.connect(Schema.ModelName)
@@ -28,22 +28,9 @@ Inserts = ["INSERT INTO Semester ('BeginDate', 'EndDate') VALUES ('2012-01-01', 
 
 
 
-#"insert into t1 (data,num) values ('This is sample data',3);"
-"""
-CREATE TABLE Student(
-  LastName TEXT,
-  FirstName TEXT,
-  Parent1Id INTEGER,
-  Parent2Id INTEGER,
-  Grade TEXT,
-  FOREIGN KEY(Parent1Id) REFERENCES Parent(ROWID),
-  FOREIGN KEY(Parent2ID) REFERENCES Parent(ROWID)
-);
-"""
-
 for insert in Inserts:
 	c.execute(insert)
 	connectionToModel.commit()
 
 c.close()
-
+"""
