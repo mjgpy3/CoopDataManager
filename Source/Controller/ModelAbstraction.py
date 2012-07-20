@@ -22,6 +22,16 @@ class ModelStructure:
 		self.TransactionTables = []
 		self.DataTypes = ['INTEGER', 'TEXT', 'REAL', 'BLOB']
 
+	def GetAttributesListByName(self, tableName):
+		""" 
+			Tries to find the specified tableName. If it does, it will return a list of that table's attributes, if it
+			does not it will return an empty list.
+		"""
+		for table in self.Tables:
+			if table.Name.lower() == tableName.lower():
+				return table.Attributes	
+		return []	
+
 	def GetRawDataFromSqlite(self):
 		""" Returns all the header information for the passed table name by query. """
 		connection = sqlite3.connect('../Model/' + self.Name)
