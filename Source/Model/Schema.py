@@ -5,7 +5,7 @@
 # 
 #
 
-ModelName = 'test'
+ModelName = 'test.db'
 
 TableCreationQueries = ["""
 CREATE TABLE Semester(
@@ -63,5 +63,13 @@ CREATE TABLE IsAHelperFor(
   PRIMARY KEY(ParentId, ClassId),
   FOREIGN KEY(ParentId) REFERENCES Parent(ROWID),
   FOREIGN KEY(ClassId) REFERENCES Class(ROWID)
+);
+""", """
+CREATE TABLE TakesPlaceDuring(
+  ClassId INTEGER,
+  SemesterId INTEGER,
+  PRIMARY KEY(ClassId, SemesterId),
+  FOREIGN KEY(ClassId) REFERENCES Class(ROWID),
+  FOREIGN KEY(SemesterId) REFERENCES Semester(ROWID)
 );
 """]
