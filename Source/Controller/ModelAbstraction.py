@@ -72,15 +72,3 @@ class Table:
 	def __repr__(self):
 		return self.Name + ':' + ', '.join(self.Attributes)
 		
-
-a = ModelStructure()
-
-a.FillTablesFromRawData()
-
-for i in a.Tables:
-	print i
-
-print "TT:"
-
-for i in a.TransactionTables:
-	print i
