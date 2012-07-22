@@ -22,3 +22,52 @@ ___  ____   _ _____  ______          _           _
 \_|  |_/\___/ \____/ \_|  |_|  \___/| |\___|\___|\__|             
                                    _/ |                           
                                   |__/                            
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+
+Objective:
+
+     This project has multiple facets. In the micro view it is
+intended to be a structure for easily managing, querying and
+generating reports for a homeschool-co-op-like setting. For
+more information on the micro, see the ER diagram in the Design
+folder... In the macro sense, it is meant to be an intellegent,
+MVC-based system in which data can be easily handled (in much
+of the same mannors as listed above). It should, if I continue
+to follow the same pattern that I have been following, have
+an appropriate blend of configuration and convention. Just the
+way it should be.
+
+Design:
+
+     At this point, the architecture is MVC, this should not
+change. If you don't know what MVC is, there's this awesome
+service out there online known as Google. Anyways, my intent
+is for the architecture to highly resemble that of Ruby on
+Rails (an elegent MVC implementation to be sure).
+
+     The Model (M in MVC) is an abstraction of Sqlite3. I use
+Sqlite3 for a few reasons, primarly being that it is free, open,
+easy to use and Python has builtin Sqlite3 functionality. Python,
+by the way, is a huge component in the model as it is in this
+entire project.
+
+     The Controller (C) is currently entirely written in Python, for
+many of the same reasons as listed in the Model rationale.
+
+     The View (V) is written in Python, specifically using the PyGtk
+module. I am using GLADE to ease the process of making the actual GUI
+and windows.
+
+License and Usage:
+
+     This project's code is totally free for anyone to use. However,
+ye be warned, if any damage occurs because of this software, by the
+fault of this software or by you own fault or some other fault, I 
+provide NO WARRANTY NOR AM I RESPONSIBLE FOR ANY DAMAGES. This code
+is free and I would feel honored if you use it, however, it is your
+choice to do so and not mine. Again, ye be warned.
+
+Thank you,
+
+Michael Gilliland
