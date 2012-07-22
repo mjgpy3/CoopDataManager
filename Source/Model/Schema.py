@@ -17,6 +17,13 @@ CREATE TABLE Parent(
   LastName TEXT,
   FirstName TEXT
 );
+""",
+"""
+CREATE TABLE Pizza(
+  Size INTEGER,
+  Topping TEXT,
+  FlavorFav TEXT
+);
 """, """
 CREATE TABLE Student(
   LastName TEXT,

@@ -21,6 +21,7 @@ class ModelStructure:
 		self.Tables = []
 		self.TransactionTables = []
 		self.DataTypes = ['INTEGER', 'TEXT', 'REAL', 'BLOB']
+		self.FillTablesFromRawData()
 
 	def GetAttributesListByName(self, tableName):
 		""" 
