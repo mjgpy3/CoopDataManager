@@ -53,7 +53,10 @@ class MainWindow:
 		gtk.main_quit()
 
 	def UserSelectsNew(self, sender):
-		self.CurrentAction = Actions.Table['New']
+		if self.cmbSelectedTable.get_active() != 0:
+			self.CurrentAction = Actions.Table['New']
+		else:
+			self.CurrentAction = None
 		gtk.main_quit()
 
 class NewTableWindow:
@@ -73,7 +76,7 @@ class NewTableWindow:
 		for attribute in attributes:
 			hbox = gtk.HBox()
 			label = gtk.Label()
-			label.set_text(ViewBrain.FormatCamelTableName(attribute) + ':')
+			label.set_text(ViewBrain.FormatCamelTableName(attribute.Name) + ':')
 			entry = gtk.Entry()	
 			hbox.add(label)
 			hbox.add(entry)

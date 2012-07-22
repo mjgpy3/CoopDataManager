@@ -70,7 +70,11 @@ class ModelStructure:
 		table = Table(tableTuple[1])
 		data = tableTuple[-1]
 		data = filter(lambda x: x[-1].replace('\n', '') in self.DataTypes ,map(lambda x: x.split(' '), data[data.index('(') + 1:data.index(')')].split(',')))
-		table.Attributes =  map(lambda x: x[-2], data)
+		table.Attributes =  []
+		attr = map(lambda x: x[-2], data)
+                types = map(lambda x: x[-1].strip('\n'), data)
+		for i in range(len(data)):
+			table.Attributes.append(Attribute(attr[i], types[i]))
 		return table
  
 
@@ -81,5 +85,13 @@ class Table:
 		self.Attributes = attr
 
 	def __repr__(self):
-		return self.Name + ':' + ', '.join(self.Attributes)
+		return self.Name + ':' + ', '.join(map(lambda x: x.Name, self.Attributes))
 		
+class Attribute:
+	""" Represents an attribute """
+	def __init__(self, name, attrType):
+		self.Name = name
+		self.Type = attrType
+
+	def __repr__(self):
+		return self.Name
