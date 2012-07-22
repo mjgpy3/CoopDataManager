@@ -23,6 +23,11 @@ class ModelStructure:
 		self.DataTypes = ['INTEGER', 'TEXT', 'REAL', 'BLOB']
 		self.FillTablesFromRawData()
 
+	def GetTableByName(self, tableName):
+		for table in self.Tables:
+			if table.Name == tableName:
+				return table
+
 	def GetAttributesListByName(self, tableName):
 		""" 
 			Tries to find the specified tableName. If it does, it will return a list of that table's attributes, if it
@@ -62,8 +67,6 @@ class ModelStructure:
 		for table in tTables:
 			self.TransactionTables.append(self.GetTableFromTuple(table))
 
-		#self.GetTableFromTuple(tables[0])
-
 	def GetTableFromTuple(self, tableTuple):
 		""" Returns a table object from the passed query tuple """
 		assert tableTuple[0] == 'table'
@@ -75,6 +78,7 @@ class ModelStructure:
                 types = map(lambda x: x[-1].strip('\n'), data)
 		for i in range(len(data)):
 			table.Attributes.append(Attribute(attr[i], types[i]))
+		print table.Attributes
 		return table
  
 
@@ -83,6 +87,12 @@ class Table:
 	def __init__(self, name, attr = []):
 		self.Name = name
 		self.Attributes = attr
+
+	def GetTypeByName(self, name):
+		""" Returns the type of an attribute if its case sensitive name is found in the table's attributes. """
+		for attribute in self.Attributes:
+			if attribute.Name == name:
+				return attribute.Type 
 
 	def __repr__(self):
 		return self.Name + ':' + ', '.join(map(lambda x: x.Name, self.Attributes))
@@ -94,4 +104,4 @@ class Attribute:
 		self.Type = attrType
 
 	def __repr__(self):
-		return self.Name
+		return self.Name + '('+ self.Type + ')'

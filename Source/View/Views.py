@@ -6,7 +6,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 import gtk.glade    
-import ViewBrain, Actions
+import ViewBrain, Actions, Queries
 
 class MainWindow:
 	""" 
@@ -62,6 +62,7 @@ class MainWindow:
 class NewTableWindow:
 	def __init__(self, tableName, attributes):
 		self.SetAttributes = {}
+		self.CurrentAction = Actions.Table['None']
 
 		# Handle the window itself
 		self.GladeFile = 'NewEntry.glade'
@@ -86,6 +87,7 @@ class NewTableWindow:
 	
 		self.LastHBox = gtk.HBox()
 		self.btnSave = gtk.Button('Save')
+		self.btnSave.connect('clicked', self.UserWantsToCreate)
 		self.btnCancel = gtk.Button('Cancel')
 		self.btnCancel.connect('clicked', lambda x: gtk.main_quit())
 
@@ -97,6 +99,10 @@ class NewTableWindow:
 		self.Window.add(self.MasterVBox)
 
 		self.Window.show_all()
+
+	def UserWantsToCreate(self, sender):
+		self.CurrentAction = Actions.Table['New']
+		gtk.main_quit()
 		
 	def UserChangesAttribute(self, sender, attribute):
 		self.SetAttributes[attribute] = sender.get_text()
@@ -122,6 +128,7 @@ if __name__ == '__main__':
 
 	mainWindow = MainWindow(structure.Tables)
 	alertWindow = AlertWindow()
+	insert = Queries.InsertQuery()
 	for wh in [mainWindow, alertWindow]:
 		wh.Window.hide()
 
@@ -134,7 +141,8 @@ if __name__ == '__main__':
 			newTableWindow = NewTableWindow(mainWindow.DesiredTable, structure.GetAttributesListByName(mainWindow.DesiredTable))
 			gtk.main()
 			newTableWindow.Window.hide()
-			print newTableWindow.SetAttributes
+			if newTableWindow.CurrentAction == Actions.Table['New']:
+				insert.InsertFromDictionary(mainWindow.DesiredTable, newTableWindow.SetAttributes)
 		elif mainWindow.CurrentAction == Actions.Table['Edit']:
 			print "Clicked Edit"
 		elif mainWindow.CurrentAction == Actions.Table['Quit']:
