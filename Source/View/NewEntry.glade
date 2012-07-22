@@ -5,6 +5,7 @@
   <widget class="GtkWindow" id="wdwNewEntry">
     <property name="can_focus">False</property>
     <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <child>
       <placeholder/>
     </child>

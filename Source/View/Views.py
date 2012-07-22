@@ -58,7 +58,7 @@ class MainWindow:
 
 class NewTableWindow:
 	def __init__(self, tableName, attributes):
-		self.AttributeRows = []
+		self.SetAttributes = {}
 
 		# Handle the window itself
 		self.GladeFile = 'NewEntry.glade'
@@ -77,7 +77,8 @@ class NewTableWindow:
 			entry = gtk.Entry()	
 			hbox.add(label)
 			hbox.add(entry)
-			self.AttributeRows.append(hbox)
+			self.SetAttributes[attribute] = ''
+			entry.connect('changed', self.UserChangesAttribute, attribute)
 			self.MasterVBox.add(hbox)
 	
 		self.LastHBox = gtk.HBox()
@@ -93,6 +94,9 @@ class NewTableWindow:
 		self.Window.add(self.MasterVBox)
 
 		self.Window.show_all()
+		
+	def UserChangesAttribute(self, sender, attribute):
+		self.SetAttributes[attribute] = sender.get_text()
 
 class AlertWindow:
 	def __init__(self, alertString = 'Sorry!\nAn Unknown Error Has Occured.'):
@@ -127,5 +131,8 @@ if __name__ == '__main__':
 			newTableWindow = NewTableWindow(mainWindow.DesiredTable, structure.GetAttributesListByName(mainWindow.DesiredTable))
 			gtk.main()
 			newTableWindow.Window.hide()
-		if mainWindow.CurrentAction == Actions.Table['Quit']:
+			print newTableWindow.SetAttributes
+		elif mainWindow.CurrentAction == Actions.Table['Edit']:
+			print "Clicked Edit"
+		elif mainWindow.CurrentAction == Actions.Table['Quit']:
 			break
