@@ -78,9 +78,12 @@ class NewTableWindow:
 			hbox = gtk.HBox()
 			label = gtk.Label()
 			label.set_text(ViewBrain.FormatCamelTableName(attribute.Name) + ':')
-			entry = gtk.Entry()	
-			hbox.add(label)
+			#if 'Id' in attribute.Name:
+			#	button = gtk.Button('Browse...')
+			#	button.connect('clicked', )
+			entry = gtk.Entry()
 			hbox.add(entry)
+			hbox.add(label)
 			self.SetAttributes[attribute] = ''
 			entry.connect('changed', self.UserChangesAttribute, attribute)
 			self.MasterVBox.add(hbox)

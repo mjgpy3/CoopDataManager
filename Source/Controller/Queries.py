@@ -9,15 +9,19 @@ import sys
 sys.path.append('../Model')
 import sqlite3, Schema, ModelAbstraction
 
-class InsertQuery:
+class QueryObject:
 	def __init__(self):
-		self.QueryString = ''
-		try:
-			self.Connection = sqlite3.connect('../Model/' + Schema.ModelName )
-			self.Cursor = self.Connection.cursor()
-		except:		# POKEMON Exception handling!!!
-			raise Exception('Failed to connect to the model!')
-		self.ModelAbstraction = ModelAbstraction.ModelStructure()
+                self.QueryString = ''
+                try:
+                        self.Connection = sqlite3.connect('../Model/' + Schema.ModelName )
+                        self.Cursor = self.Connection.cursor()
+                except:         # POKEMON Exception handling!!!
+                        raise Exception('Failed to connect to the model!')
+                self.ModelAbstraction = ModelAbstraction.ModelStructure()
+
+class InsertQuery(QueryObject):
+	def __init__(self):
+		QueryObject.__init__(self)
 
 	def InsertFromDictionary(self, tableName, hashedValues):
 		self.QueryString, attributes, values  = "INSERT INTO " + tableName + " (", ', '.join(map(lambda x: "'" + str(x.Name) + "'", hashedValues)), ''
@@ -37,3 +41,15 @@ class InsertQuery:
 
 		self.Cursor.execute(self.QueryString)
 		self.Connection.commit()
+
+class SelectQuery(QueryObject):
+	def __init__(self):
+		QueryObject.__init__(self)
+
+	def GetAllDataFromTable(self, tableName):
+		if tableName.lower() in map(lambda table: table.Name.lower(), self.ModelAbstraction.Tables):
+			self.Cursor.execute('SELECT ROWID, * FROM ' + tableName + ';')
+		else:
+			raise Exception('Table "' + tableName + '" not in the model.' )
+
+		print self.Cursor.fetchall()
