@@ -78,12 +78,9 @@ class NewTableWindow:
 			hbox = gtk.HBox()
 			label = gtk.Label()
 			label.set_text(ViewBrain.FormatCamelTableName(attribute.Name) + ':')
-			#if 'Id' in attribute.Name:
-			#	button = gtk.Button('Browse...')
-			#	button.connect('clicked', )
 			entry = gtk.Entry()
-			hbox.add(entry)
 			hbox.add(label)
+			hbox.add(entry)
 			self.SetAttributes[attribute] = ''
 			entry.connect('changed', self.UserChangesAttribute, attribute)
 			self.MasterVBox.add(hbox)
@@ -124,6 +121,52 @@ class AlertWindow:
 		self.label.set_text(alertString)
 
 		self.Window.show_all()
+
+class SelectIdWindow:
+	def __init__(self, tableName, hidden = True):
+		self.Highlighted = None
+		self.TextView = ['None Selected...']
+
+		self.GladeFile = 'SelectIdWindow.glade'
+		self.wTree = gtk.glade.XML(self.GladeFile)
+                self.Window = self.wTree.get_widget('wdwSelectId')
+		self.wTree.get_widget('lblTable').set_text(tableName)
+		self.scwTableCase = self.wTree.get_widget('scwTableCase')
+		self.Selected = self.wTree.get_widget('lblSelected')
+		self.Selected.set_text(self.TextView[0])
+		self.wTree.get_widget('btnOK').connect('clicked', self.OKClicked)
+		self.wTree.get_widget('btnCancel').connect('clicked', self.CancelClicked)
+		self.Window.connect('destroy', lambda x: gtk.main_quit())
+
+	def AddTableData(self, tableData):
+		self.Table = gtk.Table(0, 0, False)#tableData.NumberOfAttributes - 1, tableData.NumberOfTuples + 1, True)
+
+		for index in range(tableData.NumberOfAttributes):
+			button = gtk.Button(str(ViewBrain.FormatCamelTableName(str(tableData.Header[index]))))
+			self.Table.attach(button, index, index + 1, 0, 1)
+
+		for tupleIndex in range(tableData.NumberOfTuples):
+			tempList = []
+			for attrIndex in range(tableData.NumberOfAttributes):
+				button = gtk.Button(str(tableData.Data[tupleIndex][attrIndex]))
+				tempList.append(str(tableData.Data[tupleIndex][attrIndex]))
+				self.Table.attach(button, attrIndex, attrIndex + 1, tupleIndex + 1, tupleIndex + 2)
+				button.connect('clicked', self.UserSelectsNew, tupleIndex)
+			self.TextView.append(', '.join(tempList))
+
+		self.scwTableCase.add_with_viewport(self.Table)
+
+	def UserSelectsNew(self, sender, tupleNumber):
+		self.Highlighted = tupleNumber + 1
+		self.Selected.set_text(self.TextView[tupleNumber + 1])
+
+	def OKClicked(self, sender):
+		if self.Highlighted != None:
+			gtk.main_quit()
+
+	def CancelClicked(self, sender):
+		self.Highlighted == None
+		gtk.main_quit()
 
 if __name__ == '__main__':
 	# Get an abstraction of the model's structure

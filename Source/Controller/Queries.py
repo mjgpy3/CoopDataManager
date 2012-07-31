@@ -7,7 +7,10 @@
 
 import sys
 sys.path.append('../Model')
-import sqlite3, Schema, ModelAbstraction
+import sqlite3
+import Schema
+import ModelAbstraction
+import TableDataStructure
 
 class QueryObject:
 	def __init__(self):
@@ -24,13 +27,18 @@ class InsertQuery(QueryObject):
 		QueryObject.__init__(self)
 
 	def InsertFromDictionary(self, tableName, hashedValues):
+	#	for key in hashedValues:
+	#		if hashedValues[key] == None:
+	#			del hashedValues[key]
+		hashedValues = {key: value for key, value in hashedValues.items() if value not in [None, '']}
+		print hashedValues
 		self.QueryString, attributes, values  = "INSERT INTO " + tableName + " (", ', '.join(map(lambda x: "'" + str(x.Name) + "'", hashedValues)), ''
 		abstractAttributes = self.ModelAbstraction.GetAttributesListByName(tableName)
 		table = self.ModelAbstraction.GetTableByName(tableName)
 		for attr in hashedValues:
 			thisType = table.GetTypeByName(hashedValues[attr])
 			
-			print hashedValues[attr], attr, thisType		
+			print hashedValues[attr], ': ' + str(attr), thisType		
 	
 			if attr.Type == 'TEXT':
 				hashedValues[attr] = "'" + hashedValues[attr] + "'"	
@@ -52,4 +60,4 @@ class SelectQuery(QueryObject):
 		else:
 			raise Exception('Table "' + tableName + '" not in the model.' )
 
-		print self.Cursor.fetchall()
+		return TableDataStructure.TableData(['ROWID'] + self.ModelAbstraction.GetAttributesListByName(tableName), self.Cursor.fetchall())

@@ -104,4 +104,4 @@ class Attribute:
 		self.Type = attrType
 
 	def __repr__(self):
-		return self.Name + '('+ self.Type + ')'
+		return self.Name# + '('+ self.Type + ')'
