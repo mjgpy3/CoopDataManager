@@ -63,6 +63,7 @@ class NewTableWindow:
 	def __init__(self, tableName, attributes):
 		self.SetAttributes = {}
 		self.CurrentAction = Actions.Table['None']
+		self.TableName = tableName
 
 		# Handle the window itself
 		self.GladeFile = 'NewEntry.glade'
@@ -71,18 +72,28 @@ class NewTableWindow:
 		self.Window.set_title('Add New ' + tableName)
 		self.Window.set_resizable(False)
 		self.Window.connect('destroy', lambda x: gtk.main_quit())
+		self.SelectIdWindow = SelectIdWindow()
 
 		# Create the master Vertical Box
 		self.MasterVBox = gtk.VBox()
 		for attribute in attributes:
 			hbox = gtk.HBox()
 			label = gtk.Label()
-			label.set_text(ViewBrain.FormatCamelTableName(attribute.Name) + ':')
 			entry = gtk.Entry()
+			label.set_text(ViewBrain.FormatCamelTableName(attribute.Name) + ':')
 			hbox.add(label)
-			hbox.add(entry)
-			self.SetAttributes[attribute] = ''
-			entry.connect('changed', self.UserChangesAttribute, attribute)
+                       	hbox.add(entry)
+
+			if 'Id' in attribute.Name:
+				button = gtk.Button('Browse')
+				button.connect('clicked', self.UserSelectsBrowse, attribute.Name, entry)
+				entry.set_editable(False)
+				hbox.add(button)
+			else:
+				hbox.add(label)
+				hbox.add(entry)
+				self.SetAttributes[attribute] = ''
+				entry.connect('changed', self.UserChangesAttribute, attribute)
 			self.MasterVBox.add(hbox)
 	
 		self.LastHBox = gtk.HBox()
@@ -107,6 +118,26 @@ class NewTableWindow:
 	def UserChangesAttribute(self, sender, attribute):
 		self.SetAttributes[attribute] = sender.get_text()
 
+	def UserSelectsBrowse(self, sender, tableName, entry):
+		print "Browsing for " + tableName
+		table_data = None #Queries.SelectQuery().GetAllDataFromTable('')
+		model_structure = ModelStructure()
+
+		#for table in model_structure.Tables:
+			#if table.Name.lower() in :
+		#		print table
+		#		print tableName
+		#		print '-----> ' + table.References[str(tableName)]
+		table_data = Queries.SelectQuery().GetAllDataFromTable(model_structure.GetTableByName(self.TableName).References[str(tableName)]) 
+		#		break
+		self.SelectIdWindow.AddTableData(table_data)
+		self.SelectIdWindow.Window.show_all()
+		gtk.main()
+		print 'Past there'
+		self.SetAttributes[model_structure.GetAttributeFromTable(tableName, self.TableName)] = self.SelectIdWindow.Highlighted
+		if self.SelectIdWindow.Highlighted != None:
+			entry.set_text(str(self.SelectIdWindow.Highlighted))
+
 class AlertWindow:
 	def __init__(self, alertString = 'Sorry!\nAn Unknown Error Has Occured.'):
 		self.GladeFile = 'AlertWindow.glade'
@@ -123,14 +154,14 @@ class AlertWindow:
 		self.Window.show_all()
 
 class SelectIdWindow:
-	def __init__(self, tableName, hidden = True):
+	def __init__(self, hidden = True):
 		self.Highlighted = None
 		self.TextView = ['None Selected...']
 
 		self.GladeFile = 'SelectIdWindow.glade'
 		self.wTree = gtk.glade.XML(self.GladeFile)
                 self.Window = self.wTree.get_widget('wdwSelectId')
-		self.wTree.get_widget('lblTable').set_text(tableName)
+		self.Header = self.wTree.get_widget('lblTable')
 		self.scwTableCase = self.wTree.get_widget('scwTableCase')
 		self.Selected = self.wTree.get_widget('lblSelected')
 		self.Selected.set_text(self.TextView[0])
@@ -162,10 +193,12 @@ class SelectIdWindow:
 
 	def OKClicked(self, sender):
 		if self.Highlighted != None:
+			self.Window.hide()
 			gtk.main_quit()
 
 	def CancelClicked(self, sender):
 		self.Highlighted == None
+		self.Window.hide()
 		gtk.main_quit()
 
 if __name__ == '__main__':

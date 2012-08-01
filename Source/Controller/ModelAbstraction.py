@@ -28,6 +28,9 @@ class ModelStructure:
 			if table.Name == tableName:
 				return table
 
+	def GetAttributeFromTable(self, attributeName, tableName):
+		return self.GetTableByName(tableName).GetAttributeByName(attributeName)
+
 	def GetAttributesListByName(self, tableName):
 		""" 
 			Tries to find the specified tableName. If it does, it will return a list of that table's attributes, if it
@@ -69,6 +72,7 @@ class ModelStructure:
 
 	def GetTableFromTuple(self, tableTuple):
 		""" Returns a table object from the passed query tuple """
+		print 'HERE --> ' + str(tableTuple)
 		assert tableTuple[0] == 'table'
 		table = Table(tableTuple[1])
 		data = tableTuple[-1]
@@ -79,7 +83,19 @@ class ModelStructure:
 		for i in range(len(data)):
 			table.Attributes.append(Attribute(attr[i], types[i]))
 		print table.Attributes
+		table.References = self.GetDictionaryOfReferences(tableTuple[-1])
 		return table
+
+	def GetDictionaryOfReferences(self, schemaLine):
+		get_attribute = lambda attr: attr[attr.index('(') + 1:attr.index(')')]
+		get_referee =  lambda attr: attr[:attr.index('(')]
+		words = schemaLine.split(' ')
+		raw = [(words[i-1], words[i+1]) for i in range(len(words)) if 'references' in words[i].lower()]
+		dictionary = {}
+		for index in range(len(raw)):
+			dictionary[get_attribute(raw[index][0])] = get_referee(raw[index][1])
+
+		return dictionary
  
 
 class Table:
@@ -87,6 +103,12 @@ class Table:
 	def __init__(self, name, attr = []):
 		self.Name = name
 		self.Attributes = attr
+		self.References = None
+
+	def GetAttributeByName(self, name):
+		for attribute in self.Attributes:
+			if attribute.Name == name:
+				return attribute
 
 	def GetTypeByName(self, name):
 		""" Returns the type of an attribute if its case sensitive name is found in the table's attributes. """
@@ -95,7 +117,7 @@ class Table:
 				return attribute.Type 
 
 	def __repr__(self):
-		return self.Name + ':' + ', '.join(map(lambda x: x.Name, self.Attributes))
+		return self.Name + ':' + ', '.join([x.Name for x in self.Attributes])
 		
 class Attribute:
 	""" Represents an attribute """
@@ -104,4 +126,4 @@ class Attribute:
 		self.Type = attrType
 
 	def __repr__(self):
-		return self.Name# + '('+ self.Type + ')'
+		return self.Name

@@ -25,7 +25,7 @@ CREATE TABLE Student(
   Parent2Id INTEGER,
   Grade TEXT,
   FOREIGN KEY(Parent1Id) REFERENCES Parent(ROWID),
-  FOREIGN KEY(Parent2ID) REFERENCES Parent(ROWID)
+  FOREIGN KEY(Parent2Id) REFERENCES Parent(ROWID)
 );
 """, """
 CREATE TABLE Class(

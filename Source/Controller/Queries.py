@@ -43,7 +43,7 @@ class InsertQuery(QueryObject):
 			if attr.Type == 'TEXT':
 				hashedValues[attr] = "'" + hashedValues[attr] + "'"	
 
-		self.QueryString += attributes + ') VALUES (' + ', '.join(map(lambda key: hashedValues[key], hashedValues)) + ');'
+		self.QueryString += attributes + ') VALUES (' + ', '.join(map(lambda key: str(hashedValues[key]), hashedValues)) + ');'
 
 		print self.QueryString
 
