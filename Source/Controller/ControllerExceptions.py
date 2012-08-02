@@ -6,4 +6,19 @@
 # 
 
 class ImproperDataError(Exception):
+	"""
+		An exception raised when bad data is given in an SQL query.
+	"""
+	pass
+
+class TableNotFoundError(Exception):
+	"""
+		An exception raised when a table is sought that does not exist.
+	"""
+	pass
+
+class DatabaseNotFoundError(Exception):
+	"""
+		An exception raised when a database is sought that does not exist.
+	"""
 	pass

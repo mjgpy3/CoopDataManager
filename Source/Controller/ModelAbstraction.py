@@ -11,7 +11,9 @@ import sqlite3, Schema
 
 
 class ModelStructure:
-	""" A class providing an abstraction on the sctucture of the model. """
+	""" 
+		A class providing an abstraction on the sctucture of the model. 
+	"""
 	def __init__(self):
 		try:
 			self.Name = Schema.ModelName
@@ -29,6 +31,9 @@ class ModelStructure:
 				return table
 
 	def GetAttributeFromTable(self, attributeName, tableName):
+		"""
+			Returns an attribute by the passed attribute name from the passed table name
+		"""
 		return self.GetTableByName(tableName).GetAttributeByName(attributeName)
 
 	def GetAttributesListByName(self, tableName):
@@ -42,7 +47,9 @@ class ModelStructure:
 		return []	
 
 	def GetRawDataFromSqlite(self):
-		""" Returns all the header information for the passed table name by query. """
+		""" 
+			Returns all the header information for the passed table name by query. 
+		"""
 		connection = sqlite3.connect('../Model/' + self.Name)
 		cursor = connection.cursor()
 		cursor.execute('SELECT * FROM sqlite_master;')
@@ -51,7 +58,9 @@ class ModelStructure:
 		return data
 
 	def FillTablesFromRawData(self):
-		""" After GetRawDataFromSqlite has been run, this method fills the values in the Tables property """
+		""" 
+			After GetRawDataFromSqlite has been run, this method fills the values in the Tables property 
+		"""
 		allTables = []
 		tables = []
 		tTables = []
@@ -71,8 +80,9 @@ class ModelStructure:
 			self.TransactionTables.append(self.GetTableFromTuple(table))
 
 	def GetTableFromTuple(self, tableTuple):
-		""" Returns a table object from the passed query tuple """
-		print 'HERE --> ' + str(tableTuple)
+		""" 
+			Returns a table object from the passed query tuple 
+		"""
 		assert tableTuple[0] == 'table'
 		table = Table(tableTuple[1])
 		data = tableTuple[-1]
@@ -82,11 +92,14 @@ class ModelStructure:
                 types = map(lambda x: x[-1].strip('\n'), data)
 		for i in range(len(data)):
 			table.Attributes.append(Attribute(attr[i], types[i]))
-		print table.Attributes
 		table.References = self.GetDictionaryOfReferences(tableTuple[-1])
 		return table
 
 	def GetDictionaryOfReferences(self, schemaLine):
+		"""
+			Looks through a line of the schema and generates a dictionary of references of the form:
+			key: value = attributeInTable: attributeItRefersTo.
+		"""
 		get_attribute = lambda attr: attr[attr.index('(') + 1:attr.index(')')]
 		get_referee =  lambda attr: attr[:attr.index('(')]
 		words = schemaLine.split(' ')
@@ -99,19 +112,26 @@ class ModelStructure:
  
 
 class Table:
-	""" Represents a table """
+	""" 
+		Represents a table 
+	"""
 	def __init__(self, name, attr = []):
 		self.Name = name
 		self.Attributes = attr
 		self.References = None
 
 	def GetAttributeByName(self, name):
+		"""
+			Returns an attribute in the table if its case sensitive name is found.
+		"""
 		for attribute in self.Attributes:
 			if attribute.Name == name:
 				return attribute
 
 	def GetTypeByName(self, name):
-		""" Returns the type of an attribute if its case sensitive name is found in the table's attributes. """
+		""" 
+			Returns the type of an attribute if its case sensitive name is found in the table's attributes. 
+		"""
 		for attribute in self.Attributes:
 			if attribute.Name == name:
 				return attribute.Type 
@@ -120,7 +140,9 @@ class Table:
 		return self.Name + ':' + ', '.join([x.Name for x in self.Attributes])
 		
 class Attribute:
-	""" Represents an attribute """
+	""" 
+		Represents an attribute 
+	"""
 	def __init__(self, name, attrType):
 		self.Name = name
 		self.Type = attrType

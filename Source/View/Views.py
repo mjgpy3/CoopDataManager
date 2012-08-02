@@ -150,7 +150,7 @@ class NewTableWindow:
 
 class AlertWindow:
 	"""
-		The main window used for displaying errors and other warnings.
+		The window used for displaying errors and other warnings.
 	"""
 	def __init__(self, alertString = 'Sorry!\nAn Unknown Error Has Occured.'):
 		self.GladeFile = 'AlertWindow.glade'
@@ -173,6 +173,9 @@ class AlertWindow:
 		gtk.main_quit()
 
 class SelectIdWindow:
+	"""
+		A window used for selecting a foreign tuple, of which the key (ROWID) is desired.
+	"""
 	def __init__(self, hidden = True):
 		self.Highlighted = None
 		self.TextView = ['None Selected...']
