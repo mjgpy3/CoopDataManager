@@ -6,10 +6,10 @@ pygtk.require('2.0')
 import gtk
 import gtk.glade    
 
-from ModelAbstraction import *
 import ViewBrain
 import Actions
 import Queries
+from ModelAbstraction import *
 from ControllerExceptions import *
 
 class MainWindow:
@@ -18,59 +18,77 @@ class MainWindow:
         	Want to do with said table
 	"""
 	def __init__(self, tables):
+		# Non-widget data
 		self.DesiredTable = None
 		self.CurrentAction = Actions.Table['None'] 
+		self.GladeFile = 'MainWindow.glade'
 
-		# Handle the window itself		
-		self.GladeFile = 'MainWindow.glade'    
+		# Get the widget tree from the glade file
 		self.wTree = gtk.glade.XML(self.GladeFile)
+
+		# Get the widgets from the wTree
 		self.Window = self.wTree.get_widget('wdwMain')
-		self.Window.set_resizable(False)
-		self.Window.connect('destroy', self.EndThisWindow)
-		
-		# Handle the combo box
 		self.cmbSelectedTable = self.wTree.get_widget('cmbSelectedTable')
+		self.btnQuit = self.wTree.get_widget('btnQuit')
+		self.btnEdit = self.wTree.get_widget('btnEdit')
+		self.btnNew = self.wTree.get_widget('btnNew')
+		
+		# Fill the combobox with the table names
 		self.cmbSelectedTable.set_active(0)
 		for table in tables:
 			self.cmbSelectedTable.append_text(table.Name)
-		self.cmbSelectedTable.connect('changed', self.UserSelectsDifferentTable)		
 
-		# Handle the quit button
-		self.btnQuit = self.wTree.get_widget('btnQuit')
+		# Make Connections
+		self.Window.connect('destroy', self.EndThisWindow)
+		self.cmbSelectedTable.connect('changed', self.UserSelectsDifferentTable)		
 		self.btnQuit.connect('clicked', self.EndThisWindow)
-		self.btnEdit = self.wTree.get_widget('btnEdit')		
 		self.btnEdit.connect('clicked', self.UserSelectsEdit)
-		self.btnNew = self.wTree.get_widget('btnNew')
                 self.btnNew.connect('clicked', self.UserSelectsNew)
 
-		self.Window.show_all()    
-
 	def EndThisWindow(self, sender):
+		"""
+			Simply ends this window.
+		"""
 		self.CurrentAction = Actions.Table['Quit']
 		gtk.main_quit()
 
 	def UserSelectsDifferentTable(self, sender):
+		"""
+			Switches the DesiredTable data member whenever the user selects a different one in the
+			selection box.
+		"""
 		self.DesiredTable = self.cmbSelectedTable.get_active_text()	
 
 	def UserSelectsEdit(self, sender):
+		"""
+			Handles the "Edit" button when it is clicked.
+		"""
 		self.CurrentAction = Actions.Table['Edit']
 		gtk.main_quit()
 
 	def UserSelectsNew(self, sender):
+		"""
+			Handles the "New" button when it is clicked.
+		"""
 		if self.cmbSelectedTable.get_active() != 0:
 			self.CurrentAction = Actions.Table['New']
 		else:
-			self.CurrentAction = None
+			self.CurrentAction = Actions.Table['None']
 		gtk.main_quit()
 
 class NewTableWindow:
+	"""
+		This window allows users to create new table entries. It automatially generates a form for some passed tableName
+		and list of attributes.
+	"""
 	def __init__(self, tableName, attributes):
+		# Non-widget data
 		self.SetAttributes = {}
 		self.CurrentAction = Actions.Table['None']
 		self.TableName = tableName
+		self.GladeFile = 'NewEntry.glade'
 
 		# Handle the window itself
-		self.GladeFile = 'NewEntry.glade'
 		self.wTree = gtk.glade.XML(self.GladeFile)
                 self.Window = self.wTree.get_widget('wdwNewEntry')
 		self.Window.set_title('Add New ' + tableName)
@@ -81,13 +99,10 @@ class NewTableWindow:
 		# Create the master Vertical Box
 		self.MasterVBox = gtk.VBox()
 		for attribute in attributes:
-			hbox = gtk.HBox()
-			label = gtk.Label()
-			entry = gtk.Entry()
+			hbox, label, entry = gtk.HBox(), gtk.Label(), gtk.Entry()
 			label.set_text(ViewBrain.FormatCamelTableName(attribute.Name) + ':')
-			hbox.add(label)
-                       	hbox.add(entry)
-
+			for widget in [label, entry]:
+				hbox.add(widget)
 			if 'Id' in attribute.Name:
 				button = gtk.Button('Browse')
 				button.connect('clicked', self.UserSelectsBrowse, attribute.Name, entry)
@@ -123,21 +138,23 @@ class NewTableWindow:
 		self.SetAttributes[attribute] = sender.get_text()
 
 	def UserSelectsBrowse(self, sender, tableName, entry):
-		print "Browsing for " + tableName
 		table_data = None #Queries.SelectQuery().GetAllDataFromTable('')
 		model_structure = ModelStructure()
 		table_data = Queries.SelectQuery().GetAllDataFromTable(model_structure.GetTableByName(self.TableName).References[str(tableName)]) 
 		self.SelectIdWindow.AddTableData(table_data)
 		self.SelectIdWindow.Window.show_all()
 		gtk.main()
-		print 'Past there'
 		self.SetAttributes[model_structure.GetAttributeFromTable(tableName, self.TableName)] = self.SelectIdWindow.Highlighted
 		if self.SelectIdWindow.Highlighted != None:
 			entry.set_text(str(self.SelectIdWindow.Highlighted))
 
 class AlertWindow:
+	"""
+		The main window used for displaying errors and other warnings.
+	"""
 	def __init__(self, alertString = 'Sorry!\nAn Unknown Error Has Occured.'):
 		self.GladeFile = 'AlertWindow.glade'
+
                 self.wTree = gtk.glade.XML(self.GladeFile)
                 self.Window = self.wTree.get_widget('wdwAlert')
                 self.Window.set_resizable(False)
@@ -148,9 +165,10 @@ class AlertWindow:
 		self.btnQuit.connect('clicked', self.QuitClicked)
 		self.label.set_text(alertString)
 
-		self.Window.show_all()
-
 	def QuitClicked(self, sender):
+		"""
+			Handles exiting the window
+		"""
 		self.Window.hide()
 		gtk.main_quit()
 
@@ -158,8 +176,8 @@ class SelectIdWindow:
 	def __init__(self, hidden = True):
 		self.Highlighted = None
 		self.TextView = ['None Selected...']
-
 		self.GladeFile = 'SelectIdWindow.glade'
+
 		self.wTree = gtk.glade.XML(self.GladeFile)
                 self.Window = self.wTree.get_widget('wdwSelectId')
 		self.Header = self.wTree.get_widget('lblTable')
@@ -171,10 +189,16 @@ class SelectIdWindow:
 		self.Window.connect('destroy', lambda x: gtk.main_quit())
 
 	def AddTableData(self, tableData):
-		self.Table = gtk.Table(0, 0, False)#tableData.NumberOfAttributes - 1, tableData.NumberOfTuples + 1, True)
+		"""
+			Adds all necessary table data to the window. Ought to be used before displaying.
+		"""
+		# Create a table to later pack with entries
+		self.Table = gtk.Table(0, 0, False)
 
+		# Loop through the headers and add them to the first row of the table
 		for index in range(tableData.NumberOfAttributes):
 			button = gtk.Button(str(ViewBrain.FormatCamelTableName(str(tableData.Header[index]))))
+			button.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse('yellow'))
 			self.Table.attach(button, index, index + 1, 0, 1)
 
 		for tupleIndex in range(tableData.NumberOfTuples):
