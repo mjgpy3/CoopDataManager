@@ -81,9 +81,10 @@ class NewTableWindow:
 		This window allows users to create new table entries. It automatially generates a form for some passed tableName
 		and list of attributes.
 	"""
-	def __init__(self, tableName, attributes):
+	def __init__(self, tableName, attributes, model_structure):
 		# Non-widget data
 		self.SetAttributes = {}
+		self.ModelStructure = model_structure
 		self.CurrentAction = Actions.Table['None']
 		self.TableName = tableName
 		self.GladeFile = 'NewEntry.glade'
@@ -105,9 +106,12 @@ class NewTableWindow:
 				hbox.add(widget)
 			if 'Id' in attribute.Name:
 				button = gtk.Button('Browse')
+				buttonClear = gtk.Button('Clear')
 				button.connect('clicked', self.UserSelectsBrowse, attribute.Name, entry)
+				buttonClear.connect('clicked', self.UserSelectsClear, attribute.Name, entry)
 				entry.set_editable(False)
 				hbox.add(button)
+				hbox.add(buttonClear)
 			else:
 				hbox.add(label)
 				hbox.add(entry)
@@ -137,16 +141,20 @@ class NewTableWindow:
 	def UserChangesAttribute(self, sender, attribute):
 		self.SetAttributes[attribute] = sender.get_text()
 
-	def UserSelectsBrowse(self, sender, tableName, entry):
-		table_data = None #Queries.SelectQuery().GetAllDataFromTable('')
-		model_structure = ModelStructure()
-		table_data = Queries.SelectQuery().GetAllDataFromTable(model_structure.GetTableByName(self.TableName).References[str(tableName)]) 
+	def UserSelectsBrowse(self, sender, attrName, entry):
+		table_data = None
+		table_data = Queries.SelectQuery().GetAllDataFromTable(self.ModelStructure.GetTableByName(self.TableName).References[str(attrName)]) 
 		self.SelectIdWindow.AddTableData(table_data)
 		self.SelectIdWindow.Window.show_all()
 		gtk.main()
-		self.SetAttributes[model_structure.GetAttributeFromTable(tableName, self.TableName)] = self.SelectIdWindow.Highlighted
 		if self.SelectIdWindow.Highlighted != None:
+			self.SetAttributes[self.ModelStructure.GetAttributeFromTable(attrName, self.TableName)] = self.SelectIdWindow.Highlighted
 			entry.set_text(str(self.SelectIdWindow.Highlighted))
+
+	def UserSelectsClear(self, sender, attrName, entry):
+		self.SetAttributes[self.ModelStructure.GetAttributeFromTable(attrName, self.TableName)] = ''
+		entry.set_text('')
+		self.SelectIdWindow.Highlighted = None
 
 class AlertWindow:
 	"""
@@ -196,7 +204,7 @@ class SelectIdWindow:
 			Adds all necessary table data to the window. Ought to be used before displaying.
 		"""
 		# Create a table to later pack with entries
-		self.Table = gtk.Table(0, 0, False)
+		self.Table = gtk.Table()#0, 0, False)
 
 		# Loop through the headers and add them to the first row of the table
 		for index in range(tableData.NumberOfAttributes):
@@ -245,9 +253,10 @@ if __name__ == '__main__':
 		gtk.main()
 		mainWindow.Window.hide()
 		if mainWindow.CurrentAction == Actions.Table['New']:
-			newTableWindow = NewTableWindow(mainWindow.DesiredTable, structure.GetAttributesListByName(mainWindow.DesiredTable))
+			newTableWindow = NewTableWindow(mainWindow.DesiredTable, structure.GetAttributesListByName(mainWindow.DesiredTable), structure)
 			gtk.main()
 			newTableWindow.Window.hide()
+			print newTableWindow.SetAttributes
 			if ((newTableWindow.CurrentAction == Actions.Table['New']) and
 			   len([i for i in newTableWindow.SetAttributes if newTableWindow.SetAttributes[i] not in [None, '']]) != 0):
 				try:
