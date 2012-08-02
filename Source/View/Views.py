@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 import sys
 sys.path.append('../Controller')
-from ModelAbstraction import *
 import pygtk
 pygtk.require('2.0')
 import gtk
 import gtk.glade    
-import ViewBrain, Actions, Queries
+
+from ModelAbstraction import *
+import ViewBrain
+import Actions
+import Queries
+from ControllerExceptions import *
 
 class MainWindow:
 	""" 
@@ -122,14 +126,7 @@ class NewTableWindow:
 		print "Browsing for " + tableName
 		table_data = None #Queries.SelectQuery().GetAllDataFromTable('')
 		model_structure = ModelStructure()
-
-		#for table in model_structure.Tables:
-			#if table.Name.lower() in :
-		#		print table
-		#		print tableName
-		#		print '-----> ' + table.References[str(tableName)]
 		table_data = Queries.SelectQuery().GetAllDataFromTable(model_structure.GetTableByName(self.TableName).References[str(tableName)]) 
-		#		break
 		self.SelectIdWindow.AddTableData(table_data)
 		self.SelectIdWindow.Window.show_all()
 		gtk.main()
@@ -148,10 +145,14 @@ class AlertWindow:
 		self.Window.set_title('Error...')	
 		self.label = self.wTree.get_widget('lblAlertText')
 		self.btnQuit = self.wTree.get_widget('btnOkay')
-		self.btnQuit.connect('clicked', lambda x: gtk.main_quit())
+		self.btnQuit.connect('clicked', self.QuitClicked)
 		self.label.set_text(alertString)
 
 		self.Window.show_all()
+
+	def QuitClicked(self, sender):
+		self.Window.hide()
+		gtk.main_quit()
 
 class SelectIdWindow:
 	def __init__(self, hidden = True):
@@ -220,8 +221,19 @@ if __name__ == '__main__':
 			newTableWindow = NewTableWindow(mainWindow.DesiredTable, structure.GetAttributesListByName(mainWindow.DesiredTable))
 			gtk.main()
 			newTableWindow.Window.hide()
-			if newTableWindow.CurrentAction == Actions.Table['New']:
-				insert.InsertFromDictionary(mainWindow.DesiredTable, newTableWindow.SetAttributes)
+			if ((newTableWindow.CurrentAction == Actions.Table['New']) and
+			   len([i for i in newTableWindow.SetAttributes if newTableWindow.SetAttributes[i] not in [None, '']]) != 0):
+				try:
+					insert.InsertFromDictionary(mainWindow.DesiredTable, newTableWindow.SetAttributes)
+				except ImproperDataError as e:
+					alertWindow.label.set_text(str(e))
+	                                alertWindow.Window.show_all()
+        	                        gtk.main()
+
+			elif newTableWindow.CurrentAction == Actions.Table['New']:
+				alertWindow.label.set_text('No data entered, nothing was saved.')
+				alertWindow.Window.show_all()
+				gtk.main()
 		elif mainWindow.CurrentAction == Actions.Table['Edit']:
 			print "Clicked Edit"
 		elif mainWindow.CurrentAction == Actions.Table['Quit']:

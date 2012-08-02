@@ -11,6 +11,7 @@ import sqlite3
 import Schema
 import ModelAbstraction
 import TableDataStructure
+from ControllerExceptions import *
 
 class QueryObject:
 	def __init__(self):
@@ -46,8 +47,11 @@ class InsertQuery(QueryObject):
 		self.QueryString += attributes + ') VALUES (' + ', '.join(map(lambda key: str(hashedValues[key]), hashedValues)) + ');'
 
 		print self.QueryString
+		try:
+			self.Cursor.execute(self.QueryString)
+		except sqlite3.OperationalError as e:
+			raise ImproperDataError('Error with entry text: ' + str(e).split(' ')[-1])
 
-		self.Cursor.execute(self.QueryString)
 		self.Connection.commit()
 
 class SelectQuery(QueryObject):
@@ -61,3 +65,4 @@ class SelectQuery(QueryObject):
 			raise Exception('Table "' + tableName + '" not in the model.' )
 
 		return TableDataStructure.TableData(['ROWID'] + self.ModelAbstraction.GetAttributesListByName(tableName), self.Cursor.fetchall())
+ 
