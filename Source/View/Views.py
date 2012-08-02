@@ -233,7 +233,7 @@ class SelectIdWindow:
 			gtk.main_quit()
 
 	def CancelClicked(self, sender):
-		self.Highlighted == None
+		self.Highlighted = None
 		self.Window.hide()
 		gtk.main_quit()
 
