@@ -1,8 +1,8 @@
 /DevEnv/*
+/Dependencies/Windows/*
 *.pyc
 *.swp
 test.db
 *.dia
 *.msi
 *.exe
-/Dependencies/Windows/*

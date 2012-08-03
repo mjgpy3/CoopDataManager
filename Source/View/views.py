@@ -11,13 +11,14 @@ import actions
 import queries
 from model_abstraction import *
 from controller_exceptions import *
+from config_handler import *
 
 class MainWindow:
     """ 
         The main window of the GUI. This is where the user selects the table they want to modify and they determine what they
         Want to do with said table
     """
-    def __init__(self, tables):
+    def __init__(self, tables, window_name = ''):
         # Non-widget data
         self.desired_table = None
         self.current_action = actions.table['None'] 
@@ -37,6 +38,8 @@ class MainWindow:
         self.cmb_selected_table.set_active(0)
         for table in tables:
             self.cmb_selected_table.append_text(table.name)
+
+	self.window.set_title(window_name)
 
         # Make Connections
         self.window.connect('destroy', self.end_this_window)
@@ -59,11 +62,11 @@ class MainWindow:
         """
         self.desired_table = self.cmb_selected_table.get_active_text()
         if self.cmb_selected_table.get_active() != 0:
-		self.btn_edit.set_label('Edit ' + self.desired_table + ' Table')
-		self.btn_new.set_label('New ' + self.desired_table)
-	else:
-		self.btn_edit.set_label('Edit...')
-		self.btn_new.set_label('New...')
+            self.btn_edit.set_label('Edit ' + self.desired_table + ' Table')
+            self.btn_new.set_label('New ' + self.desired_table)
+        else:
+            self.btn_edit.set_label('Edit...')
+            self.btn_new.set_label('New...')
 
     def edit_table(self, sender):
         """
@@ -282,8 +285,13 @@ class SelectIdWindow:
 if __name__ == '__main__':
     # Get an abstraction of the model's structure
     structure = ModelStructure()
+    config_handler = ConfigHandler('dataMan.conf', {'name':'DataMan'})
 
-    main_window = MainWindow(structure.tables)
+    if not config_handler.config_file_exists():
+       config_handler.update_config() 
+
+    config_handler.parse_config()
+    main_window = MainWindow(structure.tables, config_handler.config['name'])
     alert_window = AlertWindow()
     insert = queries.InsertQuery()
     for wh in [main_window, alert_window]:
