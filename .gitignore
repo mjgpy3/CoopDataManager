@@ -3,3 +3,5 @@
 *.swp
 test.db
 *.dia
+*.msi
+*.exe
