@@ -1,6 +1,6 @@
 #!/bin/bash
 
-shared_folder=~/Programming/MajorProjects/CoopManager/DevEnv/Shared/
+shared_folder=~/Programming/MajorProjects/CoopManager/DevEnv/Shared
 source_folder=~/Programming/MajorProjects/CoopManager/Source
 
 rm -r $shared_folder

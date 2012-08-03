@@ -135,13 +135,22 @@ class NewTableWindow:
         self.window.show_all()
 
     def save_data(self, sender):
+        """
+            Handles ending the window when the user would like to save data
+        """
         self.current_action = actions.table['New']
         gtk.main_quit()
         
     def attribute_changed(self, sender, attribute):
+        """
+            Changes the dictionary that will be written whenever a user changes a connected entry field
+        """
         self.set_attributes[attribute] = sender.get_text()
 
     def browse_for_id(self, sender, attr_name, entry):
+        """
+            Starts the necessary actions when the user wants to browse for an id
+        """
         table_data = queries.SelectQuery().get_all_data_from_table(self.model_structure.get_table_by_name(self.table_name).references[str(attr_name)]) 
         self.select_id_window.add_table_data(table_data)
         self.select_id_window.window.show_all()
@@ -151,6 +160,9 @@ class NewTableWindow:
             entry.set_text(str(self.select_id_window.highlighted))
 
     def clear_id(self, sender, attr_name, entry):
+        """
+            Clears out the entry when the user decides they don't want a previously selected ID
+        """
         self.set_attributes[self.model_structure.get_attribute_from_table(attr_name, self.table_name)] = ''
         entry.set_text('')
         self.select_id_window.highlighted = None
@@ -239,15 +251,24 @@ class SelectIdWindow:
         self.scw_table_case.add_with_viewport(self.table)
 
     def change_highlighted(self, sender, tuple_number):
+        """
+            Sets the correct ROWID when a user selects a differing one
+        """
         self.highlighted = tuple_number + 1
         self.selected.set_text(self.text_view[tuple_number + 1])
 
     def id_found(self, sender):
+        """
+            Triggered when a user actually finds the ID they want
+        """
         if self.highlighted != None:
             self.window.hide()
             gtk.main_quit()
 
     def cancel_selection(self, sender):
+        """
+            Triggered when a user wants to quit browsing for an id
+        """
         self.highlighted = None
         self.window.hide()
         gtk.main_quit()
