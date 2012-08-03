@@ -57,7 +57,13 @@ class MainWindow:
             Switches the DesiredTable data member whenever the user selects a different one in the
             selection box.
         """
-        self.desired_table = self.cmb_selected_table.get_active_text()    
+        self.desired_table = self.cmb_selected_table.get_active_text()
+        if self.cmb_selected_table.get_active() != 0:
+		self.btn_edit.set_label('Edit ' + self.desired_table + ' Table')
+		self.btn_new.set_label('New ' + self.desired_table)
+	else:
+		self.btn_edit.set_label('Edit...')
+		self.btn_new.set_label('New...')
 
     def edit_table(self, sender):
         """
