@@ -5,4 +5,4 @@ test.db
 *.dia
 *.msi
 *.exe
-/Dependencies/*
+/Dependencies/Windows/*
