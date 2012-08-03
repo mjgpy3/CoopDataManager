@@ -5,9 +5,10 @@
 # 
 #
 
-ModelName = 'test.db'
+model_name = 'test.db'
 
-TableCreationQueries = ["""
+# A list of queries that will generate general entity/noun type tables
+table_creation_queries = ["""
 CREATE TABLE Semester(
   FallOrSpring TEXT,
   Year INTEGER
@@ -40,7 +41,8 @@ CREATE TABLE Class(
 );
 """]
 
-TransactionTableQueries = ["""
+# A list of queries that will generate tables that are transaction/link tables
+transaction_table_queries = ["""
 CREATE TABLE IsEnrolledIn(
   StudentId INTEGER,
   ClassId INTEGER,
