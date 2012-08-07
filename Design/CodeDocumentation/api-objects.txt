@@ -1,6 +1,8 @@
 actions	actions-module.html
 actions.table	actions-module.html#table
 actions.__package__	actions-module.html#__package__
+config_handler	config_handler-module.html
+config_handler.__package__	config_handler-module.html#__package__
 controller_exceptions	controller_exceptions-module.html
 controller_exceptions.__package__	controller_exceptions-module.html#__package__
 create_model	create_model-module.html
@@ -21,6 +23,11 @@ schema.__package__	schema-module.html#__package__
 table_data_structure	table_data_structure-module.html
 table_data_structure.__package__	table_data_structure-module.html#__package__
 views	views-module.html
+config_handler.ConfigHandler	config_handler.ConfigHandler-class.html
+config_handler.ConfigHandler.config_file_exists	config_handler.ConfigHandler-class.html#config_file_exists
+config_handler.ConfigHandler.update_config	config_handler.ConfigHandler-class.html#update_config
+config_handler.ConfigHandler.__init__	config_handler.ConfigHandler-class.html#__init__
+config_handler.ConfigHandler.parse_config	config_handler.ConfigHandler-class.html#parse_config
 controller_exceptions.DatabaseNotFoundError	controller_exceptions.DatabaseNotFoundError-class.html
 controller_exceptions.ImproperDataError	controller_exceptions.ImproperDataError-class.html
 controller_exceptions.NoModelInSchemaError	controller_exceptions.NoModelInSchemaError-class.html
