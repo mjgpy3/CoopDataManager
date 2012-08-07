@@ -35,6 +35,16 @@ class testDataFormatters(unittest.TestCase):
             self.assertEqual(md5_of_config_file.digest(), md5_of_expected_text.digest())
         s('rm ' + self.file_name)
 
+    def test_parse_config_gets_a_hash_with_expected_values_when_called(self):
+        desired_config = {'attr1': 'value1', 'attr2': 'value2', 'attrN': 'valueN'}
+        self.being_tested.config = desired_config
+        self.being_tested.update_config()
+        self.being_tested.config = {}
+        self.assertTrue(self.being_tested.config == {})
+        self.being_tested.parse_config()
+        self.assertEqual(desired_config, self.being_tested.config)
+
+
     def tearDown(self):
         pass
 
