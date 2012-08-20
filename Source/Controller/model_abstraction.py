@@ -30,7 +30,7 @@ class ModelStructure:
         """
             Returns a table with the passed, case-sensitive name
         """
-        for table in self.tables:
+        for table in self.tables + self.transaction_tables:
             if table.name == table_name:
                 return table
 
@@ -45,9 +45,11 @@ class ModelStructure:
             Tries to find the specified tableName. If it does, it will return a list of that table's attributes, if it
             does not it will return an empty list.
         """
-        for table in self.tables:
-            if table.name.lower() == table_name.lower():
-                return table.attributes	
+        for table in self.tables + self.transaction_tables:
+            if type(table) != type(None):
+                if table.name.lower() == table_name.lower():
+                    return table.attributes	
+
         return []	
 
     def get_raw_data_from_sqlite(self):

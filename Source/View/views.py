@@ -18,7 +18,7 @@ class MainWindow:
         The main window of the GUI. This is where the user selects the table they want to modify and they determine what they
         Want to do with said table
     """
-    def __init__(self, tables, window_name = ''):
+    def __init__(self, tables, t_tables, window_name = ''):
         # Non-widget data
         self.desired_table = None
         self.current_action = actions.table['None'] 
@@ -36,7 +36,7 @@ class MainWindow:
 
         # Fill the combobox with the table names
         self.cmb_selected_table.set_active(0)
-        for table in tables:
+        for table in tables + t_tables:
             self.cmb_selected_table.append_text(table.name)
 
 	self.window.set_title(window_name)
@@ -104,7 +104,6 @@ class NewTableWindow:
         self.window.set_title('Add New ' + table_name)
         self.window.set_resizable(False)
         self.window.connect('destroy', lambda x: gtk.main_quit())
-        self.select_id_window = SelectIdWindow()
 
         # Create the master Vertical Box
         self.master_vbox = gtk.VBox()
@@ -161,12 +160,13 @@ class NewTableWindow:
             Starts the necessary actions when the user wants to browse for an id
         """
         table_data = queries.SelectQuery().get_all_data_from_table(self.model_structure.get_table_by_name(self.table_name).references[str(attr_name)]) 
-        self.select_id_window.add_table_data(table_data)
-        self.select_id_window.window.show_all()
+        select_id_window = SelectIdWindow()
+        select_id_window.add_table_data(table_data)
+        select_id_window.window.show_all()
         gtk.main()
-        if self.select_id_window.highlighted != None:
-            self.set_attributes[self.model_structure.get_attribute_from_table(attr_name, self.table_name)] = self.select_id_window.highlighted
-            entry.set_text(str(self.select_id_window.highlighted))
+        if select_id_window.highlighted != None:
+            self.set_attributes[self.model_structure.get_attribute_from_table(attr_name, self.table_name)] = select_id_window.highlighted
+            entry.set_text(str(select_id_window.highlighted))
 
     def clear_id(self, sender, attr_name, entry):
         """
@@ -174,7 +174,6 @@ class NewTableWindow:
         """
         self.set_attributes[self.model_structure.get_attribute_from_table(attr_name, self.table_name)] = ''
         entry.set_text('')
-        self.select_id_window.highlighted = None
 
 class AlertWindow:
     """
@@ -291,7 +290,7 @@ if __name__ == '__main__':
        config_handler.update_config() 
 
     config_handler.parse_config()
-    main_window = MainWindow(structure.tables, config_handler.config['name'])
+    main_window = MainWindow(structure.tables, structure.transaction_tables, config_handler.config['name'])
     alert_window = AlertWindow()
     insert = queries.InsertQuery()
     for wh in [main_window, alert_window]:

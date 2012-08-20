@@ -44,7 +44,6 @@ class testDataFormatters(unittest.TestCase):
         self.being_tested.parse_config()
         self.assertEqual(desired_config, self.being_tested.config)
 
-
     def tearDown(self):
         pass
 
