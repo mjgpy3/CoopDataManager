@@ -10,6 +10,7 @@ import data_formatters
 import actions
 import queries
 from model_abstraction import *
+import model_abs
 from controller_exceptions import *
 from config_handler import *
 
@@ -107,12 +108,13 @@ class NewTableWindow:
 
         # Create the master Vertical Box
         self.master_vbox = gtk.VBox()
+        references = self.model_structure.get_table_by_name(self.table_name).references
         for attribute in attributes:
             hbox, label, entry = gtk.HBox(), gtk.Label(), gtk.Entry()
             label.set_text(data_formatters.camel_to_readable(attribute.name) + ':')
             for widget in [label, entry]:
                 hbox.add(widget)
-            if attribute.name in self.model_structure.get_table_by_name(self.table_name).references:
+            if attribute.name in references:
                 btn_browse = gtk.Button('Browse')
                 btn_clear = gtk.Button('Clear')
                 btn_browse.connect('clicked', self.browse_for_id, attribute.name, entry)
@@ -283,7 +285,8 @@ class SelectIdWindow:
 
 if __name__ == '__main__':
     # Get an abstraction of the model's structure
-    structure = ModelStructure()
+    structure = model_abs.ModelStructure()
+    structure.build_from_schema()
     config_handler = ConfigHandler('dataMan.conf', {'name':'DataMan'})
 
     if not config_handler.config_file_exists():

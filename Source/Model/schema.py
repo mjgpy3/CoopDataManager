@@ -33,8 +33,8 @@ CREATE TABLE Class(
   Name TEXT,
   Hour TEXT,
   Cost INTEGER,
-  AgeMin TEXT,
-  AgeMax TEXT,
+  GradeMin TEXT,
+  GradeMax TEXT,
   MaxNumberOfStudents INTEGER,
   SemesterId INTEGER,
   FOREIGN KEY(SemesterId) REFERENCES Semester(ROWID)

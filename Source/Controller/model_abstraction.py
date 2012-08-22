@@ -46,9 +46,8 @@ class ModelStructure:
             does not it will return an empty list.
         """
         for table in self.tables + self.transaction_tables:
-            if type(table) != type(None):
-                if table.name.lower() == table_name.lower():
-                    return table.attributes	
+            if table.name.lower() == table_name.lower():
+                return table.attributes	
 
         return []	
 
