@@ -8,7 +8,6 @@
 import sys
 sys.path.append('../Model')
 import sqlite3
-
 import schema
 import model_abstraction
 import table_data_structure
@@ -19,24 +18,24 @@ class QueryObject:
         The superclass for different queries that can be made. Essentially makes a connection to the database
         stated in the Schema.py file.
     """
-    def __init__(self):
+    def __init__(self, model_abstraction):
         self.query_text = ''
         try:
-            open('../Model/' + schema.model_name, 'r')
+            open('../Model/' + model_abstraction.name, 'r')
         except IOError as e:
-            raise DatabaseNotFoundError('Error while opening: ' + '../Model/' + schema.model_name)
+            raise DatabaseNotFoundError('Error while opening: ' + '../Model/' + model_abstraction.name)
  
-        self.connection = sqlite3.connect('../Model/' + schema.model_name)
+        self.connection = sqlite3.connect('../Model/' + model_abstraction.name)
         self.cursor = self.connection.cursor()
 
-        self.model_abstraction = model_abstraction.ModelStructure()
+        self.model_abstraction = model_abstraction
 
 class InsertQuery(QueryObject):
     """
         A query object for inserting data into the model.
     """
-    def __init__(self):
-        QueryObject.__init__(self)
+    def __init__(self, model_abstraction):
+        QueryObject.__init__(self, model_abstraction)
 
     def insert_from_dictionary(self, table_name, dictionary):
         dictionary = {key: value for key, value in dictionary.items() if value not in [None, '']}
@@ -62,8 +61,8 @@ class SelectQuery(QueryObject):
     """
         A query object for retriving data from the model.
     """
-    def __init__(self):
-        QueryObject.__init__(self)
+    def __init__(self, model_abstraction):
+        QueryObject.__init__(self, model_abstraction)
 
     def get_all_data_from_table(self, table_name):
         """

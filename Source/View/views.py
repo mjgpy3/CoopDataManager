@@ -9,8 +9,7 @@ import gtk.glade
 import data_formatters
 import actions
 import queries
-from model_abstraction import *
-import model_abs
+import model_abstraction
 from controller_exceptions import *
 from config_handler import *
 
@@ -114,7 +113,17 @@ class NewTableWindow:
             label.set_text(data_formatters.camel_to_readable(attribute.name) + ':')
             for widget in [label, entry]:
                 hbox.add(widget)
-            if attribute.name in references:
+            if attribute.acceptable_values != None:
+                cmb = gtk.combo_box_new_text()
+                for value in attribute.acceptable_values:
+                    cmb.append_text(str(value))
+                self.set_attributes[attribute] = attribute.acceptable_values[0]
+                cmb.set_active(0)
+                cmb.set_visible(True)
+                hbox.add(cmb)
+                cmb.connect('changed', self.selects_different_value, attribute)
+                hbox.remove(entry)
+            elif attribute.name in references:
                 btn_browse = gtk.Button('Browse')
                 btn_clear = gtk.Button('Clear')
                 btn_browse.connect('clicked', self.browse_for_id, attribute.name, entry)
@@ -157,11 +166,14 @@ class NewTableWindow:
         """
         self.set_attributes[attribute] = sender.get_text()
 
+    def selects_different_value(self, sender, attribute):
+        self.set_attributes[attribute] = sender.get_active_text()
+
     def browse_for_id(self, sender, attr_name, entry):
         """
             Starts the necessary actions when the user wants to browse for an id
         """
-        table_data = queries.SelectQuery().get_all_data_from_table(self.model_structure.get_table_by_name(self.table_name).references[str(attr_name)]) 
+        table_data = queries.SelectQuery(self.model_structure).get_all_data_from_table(self.model_structure.get_table_by_name(self.table_name).references[str(attr_name)]) 
         select_id_window = SelectIdWindow()
         select_id_window.add_table_data(table_data)
         select_id_window.window.show_all()
@@ -285,7 +297,7 @@ class SelectIdWindow:
 
 if __name__ == '__main__':
     # Get an abstraction of the model's structure
-    structure = model_abs.ModelStructure()
+    structure = model_abstraction.ModelStructure()
     structure.build_from_schema()
     config_handler = ConfigHandler('dataMan.conf', {'name':'DataMan'})
 
@@ -295,7 +307,7 @@ if __name__ == '__main__':
     config_handler.parse_config()
     main_window = MainWindow(structure.tables, structure.transaction_tables, config_handler.config['name'])
     alert_window = AlertWindow()
-    insert = queries.InsertQuery()
+    insert = queries.InsertQuery(structure)
     for wh in [main_window, alert_window]:
         wh.window.hide()
 
@@ -314,6 +326,10 @@ if __name__ == '__main__':
                 try:
                     insert.insert_from_dictionary(main_window.desired_table, new_table_window.set_attributes)
                 except ImproperDataError as e:
+                    alert_window.label.set_text(str(e))
+                    alert_window.window.show_all()
+                    gtk.main()
+                except sqlite3.IntegrityError as e:
                     alert_window.label.set_text(str(e))
                     alert_window.window.show_all()
                     gtk.main()

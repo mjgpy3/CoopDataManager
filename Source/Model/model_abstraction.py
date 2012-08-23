@@ -9,7 +9,6 @@ import sys
 sys.path.append('../Controller')
 import sqlite3
 import schema
-import schem
 from controller_exceptions import *
 
 class ModelStructure:
@@ -29,7 +28,7 @@ class ModelStructure:
                 return table
 
     def build_from_schema(self):
-        schem.build_model_structure(self)
+        schema.build_model_structure(self)
 
     def get_attribute_from_table(self, attribute_name, table_name):
         """
