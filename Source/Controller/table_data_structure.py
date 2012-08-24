@@ -12,5 +12,8 @@ class TableData:
     def __init__(self, header, data):
         self.header = header
         self.data = data
-        self.number_of_attributes = len(data[0])
+        if data != []:
+            self.number_of_attributes = len(data[0])
+        else:
+            self.number_of_attributes = None
         self.number_of_tuples = len(data)

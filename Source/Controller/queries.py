@@ -68,7 +68,7 @@ class SelectQuery(QueryObject):
         """
             Returns all data from a passed table name
         """
-        if table_name.lower() in map(lambda table: table.name.lower(), self.model_abstraction.tables):
+        if table_name.lower() in map(lambda table: table.name.lower(), self.model_abstraction.tables + self.model_abstraction.transaction_tables):
             self.cursor.execute('SELECT ROWID, * FROM ' + table_name + ';')
         else:
             raise TableNotFoundError('Table "' + table_name + '" not in the model.' )

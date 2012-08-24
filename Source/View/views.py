@@ -5,11 +5,13 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 import gtk.glade    
+import sqlite3
 
 import data_formatters
 import actions
 import queries
 import model_abstraction
+import reports
 from controller_exceptions import *
 from config_handler import *
 
@@ -33,6 +35,7 @@ class MainWindow:
         self.btn_quit = self.wTree.get_widget('btnQuit')
         self.btn_edit = self.wTree.get_widget('btnEdit')
         self.btn_new = self.wTree.get_widget('btnNew')
+        self.btn_reports = self.wTree.get_widget('btnReports')
 
         # Fill the combobox with the table names
         self.cmb_selected_table.set_active(0)
@@ -47,6 +50,7 @@ class MainWindow:
         self.btn_quit.connect('clicked', self.end_this_window)
         self.btn_edit.connect('clicked', self.edit_table)
         self.btn_new.connect('clicked', self.create_new_entry)
+        self.btn_reports.connect('clicked', self.generate_reports)
 
     def end_this_window(self, sender):
         """
@@ -85,6 +89,13 @@ class MainWindow:
             self.current_action = actions.table['None']
         gtk.main_quit()
 
+    def generate_reports(self, sender):
+        """
+            Handles the "Reports" button when it is clicked
+        """
+        self.current_action = actions.table['Reports']
+        gtk.main_quit()
+
 class NewTableWindow:
     """
         This window allows users to create new table entries. It automatially generates a form for some passed table name
@@ -96,7 +107,7 @@ class NewTableWindow:
         self.model_structure = model_structure
         self.current_action = actions.table['None']
         self.table_name = table_name
-        self.glade_file = 'NewEntry.glade'
+        self.glade_file = 'NewEntryWindow.glade'
 
         # Handle the window itself
         self.wTree = gtk.glade.XML(self.glade_file)
@@ -221,6 +232,47 @@ class AlertWindow:
         self.window.hide()
         gtk.main_quit()
 
+class ReportsWindow:
+    def __init__(self, reports):
+        # Non-widget data
+        self.highlighted = None
+        self.reports = reports
+        self.current_action = actions.table['None']
+        self.glade_file = 'ReportsWindow.glade'
+        
+        # Get the wTree
+        self.wTree = gtk.glade.XML(self.glade_file)
+
+        # Get the widgets
+        self.window = self.wTree.get_widget('wdwReports')
+        self.btn_generate = self.wTree.get_widget('btnGenerate')
+        self.btn_cancel = self.wTree.get_widget('btnCancel')
+        self.cmb_select_reports = self.wTree.get_widget('cmbSelectReports')
+
+        # Set the combobox's entires
+        for report in reports:
+            self.cmb_select_reports.append_text(report.name + ' - ' + report.output_format)
+        self.window.set_title('Reports')
+        self.cmb_select_reports.set_active(0)
+        self.cmb_select_reports.set_visible(True)
+
+
+        # Connect the widgets
+        self.window.connect('destroy', lambda x: gtk.main_quit())
+        self.cmb_select_reports.connect('changed', self.set_different_report)
+        self.btn_cancel.connect('clicked', self.quit_this_window)
+        self.btn_generate.connect('clicked', lambda x: gtk.main_quit())
+
+    def set_different_report(self, sender):
+        if self.cmb_select_reports.get_active() != 0:
+            self.highlighted = self.reports[self.cmb_select_reports.get_active() - 1]
+        else:
+            self.current_action = actions.table['Quit']
+
+    def quit_this_window(self, sender):
+        self.current_action = actions.table['Quit']
+        gtk.main_quit()
+
 class SelectIdWindow:
     """
         A window used for selecting a foreign tuple, of which the key (ROWID) is desired.
@@ -307,10 +359,10 @@ if __name__ == '__main__':
     config_handler.parse_config()
     main_window = MainWindow(structure.tables, structure.transaction_tables, config_handler.config['name'])
     alert_window = AlertWindow()
+    reports_window = ReportsWindow(reports.get_current_reports())
     insert = queries.InsertQuery(structure)
-    for wh in [main_window, alert_window]:
+    for wh in [main_window, alert_window, reports_window]:
         wh.window.hide()
-
 
     while True:
         main_window.window.show()
@@ -340,5 +392,11 @@ if __name__ == '__main__':
                 gtk.main()
         elif main_window.current_action == actions.table['Edit']:
             print "Clicked Edit"
+        elif main_window.current_action == actions.table['Reports']:
+            reports_window.window.show_all()
+            gtk.main()
+            reports_window.window.hide()
+            if reports_window.current_action not in [actions.table['Quit'], actions.table['None']]:
+                reports_window.highlighted.generator()
         elif main_window.current_action == actions.table['Quit']:
             break
