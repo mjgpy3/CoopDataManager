@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>schema</title>
+  <title>reports</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -34,7 +34,7 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        Module&nbsp;schema
+        Module&nbsp;reports
       </span>
     </td>
     <td>
@@ -44,16 +44,45 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="schema-module.html"
+            >]&nbsp;|&nbsp;<a href="reports-module.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module schema</h1><p class="nomargin-top"><span class="codelink"><a href="schema-pysrc.html">source&nbsp;code</a></span></p>
-<p>Represents the database's structure</p>
+<h1 class="epydoc">Module reports</h1><p class="nomargin-top"><span class="codelink"><a href="reports-pysrc.html">source&nbsp;code</a></span></p>
+<p>Contains a function to return all reports (get_current_reports), the 
+  Report class is used to set a standard for what reports should look like,
+  and any additional functions generate reports and should be added in 
+  get_current_reports</p>
 
+<!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="reports.Report-class.html" class="summary-name">Report</a><br />
+      Represents a report
+    </td>
+  </tr>
+</table>
 <!-- ==================== FUNCTIONS ==================== -->
 <a name="section-Functions"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -77,11 +106,46 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="build_model_structure"></a><span class="summary-sig-name">build_model_structure</span>(<span class="summary-sig-arg">model_structure</span>)</span><br />
-      This is where the model's structure is coded using abstractions from 
-      the model_abstraction.py file</td>
+          <td><span class="summary-sig"><a href="reports-module.html#get_current_reports" class="summary-sig-name">get_current_reports</a>()</span><br />
+      Used for adding reports to the reports view.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="schema-pysrc.html#build_model_structure">source&nbsp;code</a></span>
+            <span class="codelink"><a href="reports-pysrc.html#get_current_reports">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="make_html_page_of_model"></a><span class="summary-sig-name">make_html_page_of_model</span>()</span><br />
+      Makes an html file with a timestamp, showing all data currently in 
+      the model</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="reports-pysrc.html#make_html_page_of_model">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="make_csv_page_of_model"></a><span class="summary-sig-name">make_csv_page_of_model</span>()</span><br />
+      Makes a csv file with a timestamp, showing all data currently in the 
+      model</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="reports-pysrc.html#make_csv_page_of_model">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -90,31 +154,45 @@
     </td>
   </tr>
 </table>
-<!-- ==================== VARIABLES ==================== -->
-<a name="section-Variables"></a>
-<table class="summary" border="1" cellpadding="3"
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr bgcolor="#70b0f0" class="table-header">
   <td colspan="2" class="table-header">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
       <tr valign="top">
-        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="left"><span class="table-header">Function Details</span></td>
         <td align="right" valign="top"
-         ><span class="options">[<a href="#section-Variables"
+         ><span class="options">[<a href="#section-FunctionDetails"
          class="privatelink" onclick="toggle_private();"
          >hide private</a>]</span></td>
       </tr>
     </table>
   </td>
 </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="None">None</code>
-    </td>
-  </tr>
 </table>
+<a name="get_current_reports"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_current_reports</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="reports-pysrc.html#get_current_reports">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Used for adding reports to the reports view. All reports must have a 
+  name, format (e.g. html, csv, excel) and a generator function.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">

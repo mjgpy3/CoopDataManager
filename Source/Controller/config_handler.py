@@ -5,7 +5,9 @@
 # 
 # 
 
-""" This module contains the ConfigHandler class which is dedicated to handling the configuration for the framework """
+""" 
+    This module contains the ConfigHandler class which is dedicated to handling the configuration for the framework
+"""
 
 class ConfigHandler:
     def __init__(self, config_name, config_defaults = {}):

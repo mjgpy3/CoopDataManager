@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+
+"""
+    This module contains all view classes and the program's main execution loop. It needs to be separated and is not complete.
+    Each *Window class will have its own module (.py file) and the main program will no longer be stored here
+"""
+
 import sys
 sys.path.append('../Controller')
 import pygtk

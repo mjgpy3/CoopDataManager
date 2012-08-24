@@ -5,6 +5,10 @@
 # 
 # 
 
+"""
+    Constains classes for querying the database and getting information from it. Also putting information into it.
+"""
+
 import sys
 sys.path.append('../Model')
 import sqlite3
@@ -38,6 +42,9 @@ class InsertQuery(QueryObject):
         QueryObject.__init__(self, model_abstraction)
 
     def insert_from_dictionary(self, table_name, dictionary):
+        """
+            Writes data to the table_name based on the attribute: value passed as dictionary
+        """
         dictionary = {key: value for key, value in dictionary.items() if value not in [None, '']}
         self.query_text, attributes, values  = "INSERT INTO " + table_name + " (", ', '.join(map(lambda x: "'" + str(x.name) + "'", dictionary)), ''
         abstract_attributes = self.model_abstraction.get_attributes_list_by_name(table_name)

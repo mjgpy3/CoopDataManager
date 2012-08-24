@@ -2,8 +2,11 @@
 
 # Created by Michael Gilliland
 # Date: Thu Aug 23 21:32:56 EDT 2012
-# 
-# 
+
+"""
+    Contains a function to return all reports (get_current_reports), the Report class is used to set a standard for what reports
+    should look like, and any additional functions generate reports and should be added in get_current_reports
+"""
 
 import queries
 from datetime import datetime

@@ -5,6 +5,10 @@
 # 
 # 
 
+"""
+    Contains the TableData class which is used to represent data when it is returned from the model
+"""
+
 class TableData:
     """
         An object representing data gathered from a table

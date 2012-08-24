@@ -5,6 +5,10 @@
 # 
 # 
 
+"""
+    Represents the database's structure
+"""
+
 import model_abstraction as m
 
 def build_model_structure(model_structure):

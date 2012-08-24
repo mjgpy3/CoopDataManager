@@ -78,9 +78,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="get_table_by_name"></a><span class="summary-sig-name">get_table_by_name</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">table_name</span>)</span><br />
+      Returns a table with the passed, case-sensitive name</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="model_abstraction-pysrc.html#ModelStructure.__init__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="model_abstraction-pysrc.html#ModelStructure.get_table_by_name">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -94,11 +96,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="get_table_by_name"></a><span class="summary-sig-name">get_table_by_name</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">table_name</span>)</span><br />
-      Returns a table with the passed, case-sensitive name</td>
+          <td><span class="summary-sig"><a name="build_from_schema"></a><span class="summary-sig-name">build_from_schema</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Defines the model structure (sets name, tables and transaction 
+      tables) due to the file schema.py.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="model_abstraction-pysrc.html#ModelStructure.get_table_by_name">source&nbsp;code</a></span>
+            <span class="codelink"><a href="model_abstraction-pysrc.html#ModelStructure.build_from_schema">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -144,78 +146,43 @@
       
     </td>
   </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="get_raw_data_from_sqlite"></a><span class="summary-sig-name">get_raw_data_from_sqlite</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Returns all the header information for the passed table name by 
-      query.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="model_abstraction-pysrc.html#ModelStructure.get_raw_data_from_sqlite">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
+        <a name="name"></a><span class="summary-name">name</span> = <code title="''">''</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="fill_tables_from_raw_data"></a><span class="summary-sig-name">fill_tables_from_raw_data</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      After GetRawDataFromSqlite has been run, this method fills the values
-      in the Tables property</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="model_abstraction-pysrc.html#ModelStructure.fill_tables_from_raw_data">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
+        <a name="tables"></a><span class="summary-name">tables</span> = <code title="[]">[]</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="get_table_from_tuple"></a><span class="summary-sig-name">get_table_from_tuple</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">table_tuple</span>)</span><br />
-      Returns a table object from the passed query tuple</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="model_abstraction-pysrc.html#ModelStructure.get_table_from_tuple">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="get_reference_dictionary"></a><span class="summary-sig-name">get_reference_dictionary</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">schema_line</span>)</span><br />
-      Looks through a line of the schema and generates a dictionary of 
-      references of the form: key: value = attributeInTable: 
-      attributeItRefersTo.</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="model_abstraction-pysrc.html#ModelStructure.get_reference_dictionary">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
+        <a name="transaction_tables"></a><span class="summary-name">transaction_tables</span> = <code title="[]">[]</code>
     </td>
   </tr>
 </table>
@@ -283,7 +250,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Aug  5 20:28:49 2012
+    Generated by Epydoc 3.0.1 on Fri Aug 24 12:37:48 2012
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

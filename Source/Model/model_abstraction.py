@@ -5,6 +5,10 @@
 # 
 # 
 
+"""
+    Contains Table and Attribute classes, used for representing the model, and a ModelStructure to encapsulate it
+"""
+
 import sys
 sys.path.append('../Controller')
 import sqlite3

@@ -5,6 +5,10 @@
 # 
 # 
 
+"""
+    Defines exceptions specific to the controller.
+"""
+
 class ImproperDataError(Exception):
     """
         An exception raised when bad data is given in an SQL query.
