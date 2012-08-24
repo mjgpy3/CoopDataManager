@@ -28,6 +28,9 @@ class ModelStructure:
                 return table
 
     def build_from_schema(self):
+        """
+            Defines the model structure (sets name, tables and transaction tables) due to the file schema.py.
+        """
         schema.build_model_structure(self)
 
     def get_attribute_from_table(self, attribute_name, table_name):
@@ -59,6 +62,9 @@ class Table:
         self.primary_key = None
 
     def get_generation_statement(self):
+        """
+            Returns the sqlite3 statement necessary to create the table.
+        """
         statement = 'CREATE TABLE ' + self.name + '(\n'
         for attr in self.attributes[:-1]:
             statement += '  ' + attr.name + ' ' + attr.type + ',\n'
@@ -74,6 +80,9 @@ class Table:
         return statement + '\n);'
 
     def set_reference(self, attribute, table):
+        """
+            Makes it so that a passed attribute refers to a passed table
+        """
         if self.references == None: self.references = {}
         self.references[attribute.name] = table.name
 

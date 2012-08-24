@@ -12,6 +12,9 @@ sys.path.append('../Model')
 import model_abstraction
 
 def get_current_reports():
+    """
+        Used for adding reports to the reports view. All reports must have a name, format (e.g. html, csv, excel) and a generator function.
+    """
     reports = []
     get_all_in_html = Report('Get all data', 'HTML', make_html_page_of_model)
     reports.append(get_all_in_html)
@@ -21,6 +24,9 @@ def get_current_reports():
 
 
 class Report:
+    """
+        Represents a report
+    """
     def __init__(self, name, output_format, generator):
         self.name = name
         self.output_format = output_format
@@ -28,6 +34,9 @@ class Report:
 
 
 def make_html_page_of_model():
+    """
+        Makes an html file with a timestamp, showing all data currently in the model
+    """
     now = str(datetime.now())
     now_string = now[:now.index('.')].replace(':', '_').replace(' ', '_')
     file_name = 'AllModelData-' + now_string + '.html'
@@ -48,6 +57,9 @@ def make_html_page_of_model():
         f.write('  </body>\n</html>')
 
 def make_csv_page_of_model():
+    """
+        Makes a csv file with a timestamp, showing all data currently in the model
+    """
     now = str(datetime.now())
     now_string = now[:now.index('.')].replace(':', '_').replace(' ', '_')
     file_name = 'AllModelData-' + now_string + '.csv'

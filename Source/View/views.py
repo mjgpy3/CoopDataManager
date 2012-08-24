@@ -233,6 +233,9 @@ class AlertWindow:
         gtk.main_quit()
 
 class ReportsWindow:
+    """
+        A window which allows the user to select known reports and generate them.
+    """
     def __init__(self, reports):
         # Non-widget data
         self.highlighted = None
@@ -264,6 +267,9 @@ class ReportsWindow:
         self.btn_generate.connect('clicked', lambda x: gtk.main_quit())
 
     def set_different_report(self, sender):
+        """
+            Sets the current report if the user changed it to a valid option
+        """
         if self.cmb_select_reports.get_active() != 0:
             self.highlighted = self.reports[self.cmb_select_reports.get_active() - 1]
             self.current_action = actions.table['Reports']
@@ -271,6 +277,9 @@ class ReportsWindow:
             self.current_action = actions.table['Quit']
 
     def quit_this_window(self, sender):
+        """
+            Handles quitting the window
+        """
         self.current_action = actions.table['Quit']
         gtk.main_quit()
 

@@ -8,6 +8,9 @@
 import model_abstraction as m
 
 def build_model_structure(model_structure):
+    """
+        This is where the model's structure is coded using abstractions from the model_abstraction.py file
+    """
     tables = []
     transaction_tables = []
     name = 'test2.db'

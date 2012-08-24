@@ -5,6 +5,11 @@
 # 
 # 
 
+"""
+    This file uses the model structure found in the schema.py file to generate a ModelStructure, and then it
+    generates the database for the model due to the ModelStructure and schema
+"""
+
 import sqlite3, os, schema
 import model_abs
 
@@ -27,14 +32,3 @@ for table in a.tables + a.transaction_tables:
     cursor.execute(table.get_generation_statement())
     connection_to_model.commit()
 
-"""
-for query in schema.table_creation_queries:
-    cursor.execute(query)
-    connection_to_model.commit()
-
-for query in Schema.transaction_table_queries:
-    cursor.execute(query)
-    connection_to_model.commit()
-
-c.close()
-"""
