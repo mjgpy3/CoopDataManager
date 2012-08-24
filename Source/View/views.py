@@ -266,6 +266,7 @@ class ReportsWindow:
     def set_different_report(self, sender):
         if self.cmb_select_reports.get_active() != 0:
             self.highlighted = self.reports[self.cmb_select_reports.get_active() - 1]
+            self.current_action = actions.table['Reports']
         else:
             self.current_action = actions.table['Quit']
 

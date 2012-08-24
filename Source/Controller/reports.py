@@ -15,6 +15,8 @@ def get_current_reports():
     reports = []
     get_all_in_html = Report('Get all data', 'HTML', make_html_page_of_model)
     reports.append(get_all_in_html)
+    get_all_in_excel = Report('Get all data', 'Excel', make_csv_page_of_model)
+    reports.append(get_all_in_excel)
     return reports
 
 
@@ -44,4 +46,21 @@ def make_html_page_of_model():
                    f.write('          <tr><td>' + '</td><td>'.join([str(i) for i in line]) + '</td></tr>\n')
             f.write('        </table>\n')
         f.write('  </body>\n</html>')
+
+def make_csv_page_of_model():
+    now = str(datetime.now())
+    now_string = now[:now.index('.')].replace(':', '_').replace(' ', '_')
+    file_name = 'AllModelData-' + now_string + '.csv'
+    model = model_abstraction.ModelStructure()
+    model.build_from_schema()
+    select = queries.SelectQuery(model)
+
+    with open(file_name, 'w') as f:
+        for table in model.tables + model.transaction_tables:
+            table_data = select.get_all_data_from_table(table.name)
+            f.write('%s\n' % table.name)
+            f.write(','.join([str(i) for i in table_data.header]) + ',\n')
+            for line in table_data.data:
+                   f.write(','.join([str(i) for i in line]) + ',\n')
+            f.write('\n')
 
