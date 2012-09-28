@@ -39,7 +39,7 @@ class GladeWindow:
         widget.connect(event, function, *args)
         return widget
 
-class MainWindow:
+class MainWindow(GladeWindow):
     """ 
         The main window of the GUI. This is where the user selects the table they want to modify and they determine what they
         Want to do with said table
@@ -48,21 +48,18 @@ class MainWindow:
         # Non-widget data
         self.desired_table = None
         self.current_action = actions.table['None'] 
-        self.glade_file = 'MainWindow.glade'
-
-        # Get the widget tree from the glade file
-        self.wTree = gtk.glade.XML(self.glade_file)
+        GladeWindow.__init__(self, 'MainWindow.glade')
 
         # Get the widgets from the wTree
-        self.window = self.wTree.get_widget('wdwMain')
-        self.cmb_selected_table = self.wTree.get_widget('cmbSelectedTable')
-
-        # Get the buttons
-        self.btn_quit = self.wTree.get_widget('btnQuit')
-        self.btn_edit = self.wTree.get_widget('btnEdit')
-        self.btn_new = self.wTree.get_widget('btnNew')
-        self.btn_reports = self.wTree.get_widget('btnReports')
-        self.btn_defaults = self.wTree.get_widget('btnDefaults')
+        self.window = self.connect_widget_by_name('wdwMain', 'destroy', self.end_this_window)
+        self.cmb_selected_table = self.connect_widget_by_name('cmbSelectedTable', \
+                                                              'changed', self.use_different_table)
+        # Get the buttons and connect 'em thanks to inheritance!
+        self.btn_quit = self.connect_widget_by_name('btnQuit', 'clicked', self.end_this_window)
+        self.btn_edit = self.connect_widget_by_name('btnEdit', 'clicked', self.edit_table)
+        self.btn_new = self.connect_widget_by_name('btnNew', 'clicked', self.create_new_entry)
+        self.btn_reports = self.connect_widget_by_name('btnReports', 'clicked', self.generate_reports)
+        self.btn_defaults = self.connect_widget_by_name('btnDefaults', 'clicked', self.edit_defaults)
 
         # Fill the combobox with the table names
         self.cmb_selected_table.set_active(0)
@@ -70,15 +67,6 @@ class MainWindow:
             self.cmb_selected_table.append_text(table.name)
 
 	self.window.set_title(window_name)
-
-        # Make Connections
-        self.window.connect('destroy', self.end_this_window)
-        self.cmb_selected_table.connect('changed', self.use_different_table)        
-        self.btn_quit.connect('clicked', self.end_this_window)
-        self.btn_edit.connect('clicked', self.edit_table)
-        self.btn_new.connect('clicked', self.create_new_entry)
-        self.btn_reports.connect('clicked', self.generate_reports)
-        self.btn_defaults.connect('clicked', self.edit_defaults)
 
     def end_this_window(self, sender):
         """
