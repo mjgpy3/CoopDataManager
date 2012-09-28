@@ -21,25 +21,9 @@ import reports
 from controller_exceptions import *
 from config_handler import *
 
+import glade_window
 
-class GladeWindow:
-    """
-        The parent class for many windows, handling the glade views
-    """
-    def __init__(self, glade_file):
-        self.glade_file = glade_file
-        self.wTree = gtk.glade.XML(self.glade_file)
-
-    def connect_widget_by_name(self, name, event, function, *args):
-        """
-            Connects a passed widget, specified by name to the passed function and then
-            returns the widget with the name of name.
-        """
-        widget = self.wTree.get_widget(name)
-        widget.connect(event, function, *args)
-        return widget
-
-class MainWindow(GladeWindow):
+class MainWindow(glade_window.GladeWindow):
     """ 
         The main window of the GUI. This is where the user selects the table they want to modify and they determine what they
         Want to do with said table
@@ -48,7 +32,7 @@ class MainWindow(GladeWindow):
         # Non-widget data
         self.desired_table = None
         self.current_action = actions.table['None'] 
-        GladeWindow.__init__(self, 'MainWindow.glade')
+        glade_window.GladeWindow.__init__(self, 'MainWindow.glade')
 
         # Get the widgets from the wTree
         self.window = self.connect_widget_by_name('wdwMain', 'destroy', self.end_this_window)
