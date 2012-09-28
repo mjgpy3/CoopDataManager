@@ -5,6 +5,12 @@
 # 
 # 
 
+"""
+    In charge of creating a form for the user to enter data into to be saved in the model (through
+the controller of course). The form also allows foreign references to be browsed for and entered
+easily.
+"""
+
 import pygtk
 pygtk.require('2.0')
 import gtk

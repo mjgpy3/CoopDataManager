@@ -5,6 +5,10 @@
 # 
 # 
 
+"""
+    Kinda like the JavaScript alert function. It's just in charge of saying something to the user.
+"""
+
 import pygtk
 pygtk.require('2.0')
 import gtk

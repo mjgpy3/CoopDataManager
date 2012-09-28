@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>reports_window</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;reports_window
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="reports_window-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="reports_window-module.html">Module reports_window</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/env python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># Created by Michael Gilliland</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># Date: Thu Sep 27 23:52:17 EDT 2012</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-docstring">    The Reports Window is in charge of allowing the user to select which report they would like</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-docstring">to generate. The controller contians actual report generation infrastructure.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">pygtk</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-name">pygtk</tt><tt class="py-op">.</tt><tt class="py-name">require</tt><tt class="py-op">(</tt><tt class="py-string">'2.0'</tt><tt class="py-op">)</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">gtk</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module glade_window=glade_window-module.html"><a title="glade_window" class="py-name" href="#" onclick="return doclink('link-0', 'glade_window', 'link-0');">glade_window</a></tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module actions=actions-module.html"><a title="actions" class="py-name" href="#" onclick="return doclink('link-1', 'actions', 'link-1');">actions</a></tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"> </tt>
+<a name="ReportsWindow"></a><div id="ReportsWindow-def"><a name="L20"></a><tt class="py-lineno">20</tt> <a class="py-toggle" href="#" id="ReportsWindow-toggle" onclick="return toggle('ReportsWindow');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="reports_window.ReportsWindow-class.html">ReportsWindow</a><tt class="py-op">(</tt><tt class="py-base-class">glade_window</tt><tt class="py-op">.</tt><tt class="py-base-class">GladeWindow</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ReportsWindow-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="ReportsWindow-expanded"><a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">        A window which allows the user to select known reports and generate them.</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="ReportsWindow.__init__"></a><div id="ReportsWindow.__init__-def"><a name="L24"></a><tt class="py-lineno">24</tt> <a class="py-toggle" href="#" id="ReportsWindow.__init__-toggle" onclick="return toggle('ReportsWindow.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="reports_window.ReportsWindow-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">reports</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ReportsWindow.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="ReportsWindow.__init__-expanded"><a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">        <tt class="py-comment"># Non-widget data</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">highlighted</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Module reports=reports-module.html"><a title="reports" class="py-name" href="#" onclick="return doclink('link-2', 'reports', 'link-2');">reports</a></tt> <tt class="py-op">=</tt> <tt id="link-3" class="py-name"><a title="reports" class="py-name" href="#" onclick="return doclink('link-3', 'reports', 'link-2');">reports</a></tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_action</tt> <tt class="py-op">=</tt> <tt id="link-4" class="py-name"><a title="actions" class="py-name" href="#" onclick="return doclink('link-4', 'actions', 'link-1');">actions</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Variable actions.table=actions-module.html#table"><a title="actions.table" class="py-name" href="#" onclick="return doclink('link-5', 'table', 'link-5');">table</a></tt><tt class="py-op">[</tt><tt class="py-string">'None'</tt><tt class="py-op">]</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">        <tt id="link-6" class="py-name"><a title="glade_window" class="py-name" href="#" onclick="return doclink('link-6', 'glade_window', 'link-0');">glade_window</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Class glade_window.GladeWindow=glade_window.GladeWindow-class.html"><a title="glade_window.GladeWindow" class="py-name" href="#" onclick="return doclink('link-7', 'GladeWindow', 'link-7');">GladeWindow</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method alert_window.AlertWindow.__init__()=alert_window.AlertWindow-class.html#__init__,Method config_handler.ConfigHandler.__init__()=config_handler.ConfigHandler-class.html#__init__,Method glade_window.GladeWindow.__init__()=glade_window.GladeWindow-class.html#__init__,Method main_window.MainWindow.__init__()=main_window.MainWindow-class.html#__init__,Method model_abstraction.Attribute.__init__()=model_abstraction.Attribute-class.html#__init__,Method model_abstraction.Table.__init__()=model_abstraction.Table-class.html#__init__,Method new_table_window.NewTableWindow.__init__()=new_table_window.NewTableWindow-class.html#__init__,Method queries.InsertQuery.__init__()=queries.InsertQuery-class.html#__init__,Method queries.QueryObject.__init__()=queries.QueryObject-class.html#__init__,Method queries.SelectQuery.__init__()=queries.SelectQuery-class.html#__init__,Method reports.Report.__init__()=reports.Report-class.html#__init__,Method reports_window.ReportsWindow.__init__()=reports_window.ReportsWindow-class.html#__init__,Method select_id_window.SelectIdWindow.__init__()=select_id_window.SelectIdWindow-class.html#__init__,Method table_data_structure.TableData.__init__()=table_data_structure.TableData-class.html#__init__"><a title="alert_window.AlertWindow.__init__
+config_handler.ConfigHandler.__init__
+glade_window.GladeWindow.__init__
+main_window.MainWindow.__init__
+model_abstraction.Attribute.__init__
+model_abstraction.Table.__init__
+new_table_window.NewTableWindow.__init__
+queries.InsertQuery.__init__
+queries.QueryObject.__init__
+queries.SelectQuery.__init__
+reports.Report.__init__
+reports_window.ReportsWindow.__init__
+select_id_window.SelectIdWindow.__init__
+table_data_structure.TableData.__init__" class="py-name" href="#" onclick="return doclink('link-8', '__init__', 'link-8');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-string">'ReportsWindow.glade'</tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt class="py-comment"># Get the widgets</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">window</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method glade_window.GladeWindow.connect_widget_by_name()=glade_window.GladeWindow-class.html#connect_widget_by_name"><a title="glade_window.GladeWindow.connect_widget_by_name" class="py-name" href="#" onclick="return doclink('link-9', 'connect_widget_by_name', 'link-9');">connect_widget_by_name</a></tt><tt class="py-op">(</tt><tt class="py-string">'wdwReports'</tt><tt class="py-op">,</tt> <tt class="py-string">'destroy'</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method alert_window.AlertWindow.quit_this_window()=alert_window.AlertWindow-class.html#quit_this_window,Method reports_window.ReportsWindow.quit_this_window()=reports_window.ReportsWindow-class.html#quit_this_window"><a title="alert_window.AlertWindow.quit_this_window
+reports_window.ReportsWindow.quit_this_window" class="py-name" href="#" onclick="return doclink('link-10', 'quit_this_window', 'link-10');">quit_this_window</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn_generate</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="glade_window.GladeWindow.connect_widget_by_name" class="py-name" href="#" onclick="return doclink('link-11', 'connect_widget_by_name', 'link-9');">connect_widget_by_name</a></tt><tt class="py-op">(</tt><tt class="py-string">'btnGenerate'</tt><tt class="py-op">,</tt> <tt class="py-string">'clicked'</tt><tt class="py-op">,</tt> <tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">main_quit</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn_cancel</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="glade_window.GladeWindow.connect_widget_by_name" class="py-name" href="#" onclick="return doclink('link-12', 'connect_widget_by_name', 'link-9');">connect_widget_by_name</a></tt><tt class="py-op">(</tt><tt class="py-string">'btnCancel'</tt><tt class="py-op">,</tt> <tt class="py-string">'clicked'</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="alert_window.AlertWindow.quit_this_window
+reports_window.ReportsWindow.quit_this_window" class="py-name" href="#" onclick="return doclink('link-13', 'quit_this_window', 'link-10');">quit_this_window</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">cmb_select_reports</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="glade_window.GladeWindow.connect_widget_by_name" class="py-name" href="#" onclick="return doclink('link-14', 'connect_widget_by_name', 'link-9');">connect_widget_by_name</a></tt><tt class="py-op">(</tt><tt class="py-string">'cmbSelectReports'</tt><tt class="py-op">,</tt> \ </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">                                                              <tt class="py-string">'changed'</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method reports_window.ReportsWindow.set_different_report()=reports_window.ReportsWindow-class.html#set_different_report"><a title="reports_window.ReportsWindow.set_different_report" class="py-name" href="#" onclick="return doclink('link-15', 'set_different_report', 'link-15');">set_different_report</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt class="py-comment"># Set the combobox's entires</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">report</tt> <tt class="py-keyword">in</tt> <tt id="link-16" class="py-name"><a title="reports" class="py-name" href="#" onclick="return doclink('link-16', 'reports', 'link-2');">reports</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">cmb_select_reports</tt><tt class="py-op">.</tt><tt class="py-name">append_text</tt><tt class="py-op">(</tt><tt class="py-name">report</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Variable model_abstraction.ModelStructure.name=model_abstraction.ModelStructure-class.html#name"><a title="model_abstraction.ModelStructure.name" class="py-name" href="#" onclick="return doclink('link-17', 'name', 'link-17');">name</a></tt> <tt class="py-op">+</tt> <tt class="py-string">' - '</tt> <tt class="py-op">+</tt> <tt class="py-name">report</tt><tt class="py-op">.</tt><tt class="py-name">output_format</tt><tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">window</tt><tt class="py-op">.</tt><tt class="py-name">set_title</tt><tt class="py-op">(</tt><tt class="py-string">'Reports'</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">cmb_select_reports</tt><tt class="py-op">.</tt><tt class="py-name">set_active</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">cmb_select_reports</tt><tt class="py-op">.</tt><tt class="py-name">set_visible</tt><tt class="py-op">(</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line"> </tt>
+<a name="ReportsWindow.set_different_report"></a><div id="ReportsWindow.set_different_report-def"><a name="L46"></a><tt class="py-lineno">46</tt> <a class="py-toggle" href="#" id="ReportsWindow.set_different_report-toggle" onclick="return toggle('ReportsWindow.set_different_report');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="reports_window.ReportsWindow-class.html#set_different_report">set_different_report</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">sender</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ReportsWindow.set_different_report-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="ReportsWindow.set_different_report-expanded"><a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line"><tt class="py-docstring">            Sets the current report if the user changed it to a valid option</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">cmb_select_reports</tt><tt class="py-op">.</tt><tt class="py-name">get_active</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">!=</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">highlighted</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="reports" class="py-name" href="#" onclick="return doclink('link-18', 'reports', 'link-2');">reports</a></tt><tt class="py-op">[</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">cmb_select_reports</tt><tt class="py-op">.</tt><tt class="py-name">get_active</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">-</tt> <tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_action</tt> <tt class="py-op">=</tt> <tt id="link-19" class="py-name"><a title="actions" class="py-name" href="#" onclick="return doclink('link-19', 'actions', 'link-1');">actions</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name"><a title="actions.table" class="py-name" href="#" onclick="return doclink('link-20', 'table', 'link-5');">table</a></tt><tt class="py-op">[</tt><tt class="py-string">'Reports'</tt><tt class="py-op">]</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_action</tt> <tt class="py-op">=</tt> <tt id="link-21" class="py-name"><a title="actions" class="py-name" href="#" onclick="return doclink('link-21', 'actions', 'link-1');">actions</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="actions.table" class="py-name" href="#" onclick="return doclink('link-22', 'table', 'link-5');">table</a></tt><tt class="py-op">[</tt><tt class="py-string">'Quit'</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"> </tt>
+<a name="ReportsWindow.quit_this_window"></a><div id="ReportsWindow.quit_this_window-def"><a name="L56"></a><tt class="py-lineno">56</tt> <a class="py-toggle" href="#" id="ReportsWindow.quit_this_window-toggle" onclick="return toggle('ReportsWindow.quit_this_window');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="reports_window.ReportsWindow-class.html#quit_this_window">quit_this_window</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">sender</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ReportsWindow.quit_this_window-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="ReportsWindow.quit_this_window-expanded"><a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"><tt class="py-docstring">            Handles quitting the window</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">current_action</tt> <tt class="py-op">=</tt> <tt id="link-23" class="py-name"><a title="actions" class="py-name" href="#" onclick="return doclink('link-23', 'actions', 'link-1');">actions</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="actions.table" class="py-name" href="#" onclick="return doclink('link-24', 'table', 'link-5');">table</a></tt><tt class="py-op">[</tt><tt class="py-string">'Quit'</tt><tt class="py-op">]</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">        <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">main_quit</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Sep 28 00:12:05 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

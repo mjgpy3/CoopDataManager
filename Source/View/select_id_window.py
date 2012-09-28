@@ -5,6 +5,11 @@
 # 
 # 
 
+"""
+    In charge of presenting a user with a table's worth of data and allowing them to select only one
+row of the data.
+"""
+
 import pygtk
 pygtk.require('2.0')
 import gtk

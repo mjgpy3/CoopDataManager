@@ -5,6 +5,11 @@
 # 
 # 
 
+"""
+    The Reports Window is in charge of allowing the user to select which report they would like
+to generate. The controller contians actual report generation infrastructure.
+"""
+
 import pygtk
 pygtk.require('2.0')
 import gtk

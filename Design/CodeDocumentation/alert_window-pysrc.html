@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>alert_window</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;alert_window
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="alert_window-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="alert_window-module.html">Module alert_window</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/env python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-comment"># Created by Michael Gilliland</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># Date: Thu Sep 27 23:59:56 EDT 2012</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-comment"># </tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-docstring">    Kinda like the JavaScript alert function. It's just in charge of saying something to the user.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">pygtk</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-name">pygtk</tt><tt class="py-op">.</tt><tt class="py-name">require</tt><tt class="py-op">(</tt><tt class="py-string">'2.0'</tt><tt class="py-op">)</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">gtk</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module glade_window=glade_window-module.html"><a title="glade_window" class="py-name" href="#" onclick="return doclink('link-0', 'glade_window', 'link-0');">glade_window</a></tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
+<a name="AlertWindow"></a><div id="AlertWindow-def"><a name="L18"></a><tt class="py-lineno">18</tt> <a class="py-toggle" href="#" id="AlertWindow-toggle" onclick="return toggle('AlertWindow');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="alert_window.AlertWindow-class.html">AlertWindow</a><tt class="py-op">(</tt><tt class="py-base-class">glade_window</tt><tt class="py-op">.</tt><tt class="py-base-class">GladeWindow</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AlertWindow-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="AlertWindow-expanded"><a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-docstring">        The window used for displaying errors and other warnings.</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="AlertWindow.__init__"></a><div id="AlertWindow.__init__-def"><a name="L22"></a><tt class="py-lineno">22</tt> <a class="py-toggle" href="#" id="AlertWindow.__init__-toggle" onclick="return toggle('AlertWindow.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="alert_window.AlertWindow-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">alert_string</tt> <tt class="py-op">=</tt> <tt class="py-string">'Sorry!\nAn Unknown Error Has Occured.'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AlertWindow.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="AlertWindow.__init__-expanded"><a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">        <tt id="link-1" class="py-name"><a title="glade_window" class="py-name" href="#" onclick="return doclink('link-1', 'glade_window', 'link-0');">glade_window</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Class glade_window.GladeWindow=glade_window.GladeWindow-class.html"><a title="glade_window.GladeWindow" class="py-name" href="#" onclick="return doclink('link-2', 'GladeWindow', 'link-2');">GladeWindow</a></tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Method alert_window.AlertWindow.__init__()=alert_window.AlertWindow-class.html#__init__,Method config_handler.ConfigHandler.__init__()=config_handler.ConfigHandler-class.html#__init__,Method glade_window.GladeWindow.__init__()=glade_window.GladeWindow-class.html#__init__,Method main_window.MainWindow.__init__()=main_window.MainWindow-class.html#__init__,Method model_abstraction.Attribute.__init__()=model_abstraction.Attribute-class.html#__init__,Method model_abstraction.Table.__init__()=model_abstraction.Table-class.html#__init__,Method new_table_window.NewTableWindow.__init__()=new_table_window.NewTableWindow-class.html#__init__,Method queries.InsertQuery.__init__()=queries.InsertQuery-class.html#__init__,Method queries.QueryObject.__init__()=queries.QueryObject-class.html#__init__,Method queries.SelectQuery.__init__()=queries.SelectQuery-class.html#__init__,Method reports.Report.__init__()=reports.Report-class.html#__init__,Method reports_window.ReportsWindow.__init__()=reports_window.ReportsWindow-class.html#__init__,Method select_id_window.SelectIdWindow.__init__()=select_id_window.SelectIdWindow-class.html#__init__,Method table_data_structure.TableData.__init__()=table_data_structure.TableData-class.html#__init__"><a title="alert_window.AlertWindow.__init__
+config_handler.ConfigHandler.__init__
+glade_window.GladeWindow.__init__
+main_window.MainWindow.__init__
+model_abstraction.Attribute.__init__
+model_abstraction.Table.__init__
+new_table_window.NewTableWindow.__init__
+queries.InsertQuery.__init__
+queries.QueryObject.__init__
+queries.SelectQuery.__init__
+reports.Report.__init__
+reports_window.ReportsWindow.__init__
+select_id_window.SelectIdWindow.__init__
+table_data_structure.TableData.__init__" class="py-name" href="#" onclick="return doclink('link-3', '__init__', 'link-3');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-string">'AlertWindow.glade'</tt><tt class="py-op">)</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">        <tt class="py-comment"># Get the widgets</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">window</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Method glade_window.GladeWindow.connect_widget_by_name()=glade_window.GladeWindow-class.html#connect_widget_by_name"><a title="glade_window.GladeWindow.connect_widget_by_name" class="py-name" href="#" onclick="return doclink('link-4', 'connect_widget_by_name', 'link-4');">connect_widget_by_name</a></tt><tt class="py-op">(</tt><tt class="py-string">'wdwAlert'</tt><tt class="py-op">,</tt> <tt class="py-string">'destroy'</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method alert_window.AlertWindow.quit_this_window()=alert_window.AlertWindow-class.html#quit_this_window,Method reports_window.ReportsWindow.quit_this_window()=reports_window.ReportsWindow-class.html#quit_this_window"><a title="alert_window.AlertWindow.quit_this_window
+reports_window.ReportsWindow.quit_this_window" class="py-name" href="#" onclick="return doclink('link-5', 'quit_this_window', 'link-5');">quit_this_window</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">btn_quit</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="glade_window.GladeWindow.connect_widget_by_name" class="py-name" href="#" onclick="return doclink('link-6', 'connect_widget_by_name', 'link-4');">connect_widget_by_name</a></tt><tt class="py-op">(</tt><tt class="py-string">'btnOkay'</tt><tt class="py-op">,</tt> <tt class="py-string">'clicked'</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="alert_window.AlertWindow.quit_this_window
+reports_window.ReportsWindow.quit_this_window" class="py-name" href="#" onclick="return doclink('link-7', 'quit_this_window', 'link-5');">quit_this_window</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">label</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">wTree</tt><tt class="py-op">.</tt><tt class="py-name">get_widget</tt><tt class="py-op">(</tt><tt class="py-string">'lblAlertText'</tt><tt class="py-op">)</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">        <tt class="py-comment"># Set attributes of the widgets</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">window</tt><tt class="py-op">.</tt><tt class="py-name">set_resizable</tt><tt class="py-op">(</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">window</tt><tt class="py-op">.</tt><tt class="py-name">set_title</tt><tt class="py-op">(</tt><tt class="py-string">'Error...'</tt><tt class="py-op">)</tt>     </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">label</tt><tt class="py-op">.</tt><tt class="py-name">set_text</tt><tt class="py-op">(</tt><tt class="py-name">alert_string</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"> </tt>
+<a name="AlertWindow.quit_this_window"></a><div id="AlertWindow.quit_this_window-def"><a name="L35"></a><tt class="py-lineno">35</tt> <a class="py-toggle" href="#" id="AlertWindow.quit_this_window-toggle" onclick="return toggle('AlertWindow.quit_this_window');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="alert_window.AlertWindow-class.html#quit_this_window">quit_this_window</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">sender</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="AlertWindow.quit_this_window-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="AlertWindow.quit_this_window-expanded"><a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"><tt class="py-docstring">            Handles exiting the window</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">window</tt><tt class="py-op">.</tt><tt class="py-name">hide</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-name">gtk</tt><tt class="py-op">.</tt><tt class="py-name">main_quit</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Sep 28 00:12:05 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
