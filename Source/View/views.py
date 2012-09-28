@@ -57,7 +57,7 @@ class AlertWindow:
         self.window.hide()
         gtk.main_quit()
 
-class ReportsWindow:
+class ReportsWindow(glade_window.GladeWindow):
     """
         A window which allows the user to select known reports and generate them.
     """
@@ -66,16 +66,15 @@ class ReportsWindow:
         self.highlighted = None
         self.reports = reports
         self.current_action = actions.table['None']
-        self.glade_file = 'ReportsWindow.glade'
-        
-        # Get the wTree
-        self.wTree = gtk.glade.XML(self.glade_file)
+
+        glade_window.GladeWindow.__init__(self, 'ReportsWindow.glade')
 
         # Get the widgets
-        self.window = self.wTree.get_widget('wdwReports')
-        self.btn_generate = self.wTree.get_widget('btnGenerate')
-        self.btn_cancel = self.wTree.get_widget('btnCancel')
-        self.cmb_select_reports = self.wTree.get_widget('cmbSelectReports')
+        self.window = self.connect_widget_by_name('wdwReports', 'destroy', lambda x: gtk.main_quit())
+        self.btn_generate = self.connect_widget_by_name('btnGenerate', 'clicked', lambda x: gtk.main_quit())
+        self.btn_cancel = self.connect_widget_by_name('btnCancel', 'clicked', self.quit_this_window)
+        self.cmb_select_reports = self.connect_widget_by_name('cmbSelectReports', \
+                                                              'changed', self.set_different_report)
 
         # Set the combobox's entires
         for report in reports:
@@ -83,13 +82,6 @@ class ReportsWindow:
         self.window.set_title('Reports')
         self.cmb_select_reports.set_active(0)
         self.cmb_select_reports.set_visible(True)
-
-
-        # Connect the widgets
-        self.window.connect('destroy', lambda x: gtk.main_quit())
-        self.cmb_select_reports.connect('changed', self.set_different_report)
-        self.btn_cancel.connect('clicked', self.quit_this_window)
-        self.btn_generate.connect('clicked', lambda x: gtk.main_quit())
 
     def set_different_report(self, sender):
         """
