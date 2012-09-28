@@ -24,7 +24,7 @@ from config_handler import *
 import glade_window
 import main_window as m
 
-class NewTableWindow:
+class NewTableWindow(glade_window.GladeWindow):
     """
         This window allows users to create new table entries. It automatially generates a form for some passed table name
         and list of attributes.
@@ -35,14 +35,13 @@ class NewTableWindow:
         self.model_structure = model_structure
         self.current_action = actions.table['None']
         self.table_name = table_name
-        self.glade_file = 'NewEntryWindow.glade'
+
+        glade_window.GladeWindow.__init__(self, 'NewEntryWindow.glade')
 
         # Handle the window itself
-        self.wTree = gtk.glade.XML(self.glade_file)
-        self.window = self.wTree.get_widget('wdwNewEntry')
+        self.window = self.connect_widget_by_name('wdwNewEntry', 'destroy', lambda x: gtk.main_quit())
         self.window.set_title('Add New ' + table_name)
         self.window.set_resizable(False)
-        self.window.connect('destroy', lambda x: gtk.main_quit())
 
         # Create the master Vertical Box
         self.master_vbox = gtk.VBox()
@@ -78,11 +77,8 @@ class NewTableWindow:
             self.master_vbox.add(hbox)
     
         self.last_hbox = gtk.HBox()
-        self.btn_save = gtk.Button('Save')
-        self.btn_save.connect('clicked', self.save_data)
-        self.btn_cancel = gtk.Button('Cancel')
-        self.btn_cancel.connect('clicked', lambda x: gtk.main_quit())
-
+        self.btn_save = self.connect_new_button('Save', self.save_data)
+        self.btn_cancel = self.connect_new_button('Cancel', lambda x: gtk.main_quit())
         self.last_hbox.add(self.btn_save)
         self.last_hbox.add(self.btn_cancel)
             

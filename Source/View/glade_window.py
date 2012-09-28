@@ -33,3 +33,12 @@ class GladeWindow:
         widget.connect(event, function, *args)
         return widget
 
+    def connect_new_button(self, name, function, *args):
+        """
+            Creates a new button, connects it and returns it
+        """
+        widget = gtk.Button(name)
+        widget.connect('clicked', function, *args)
+        return widget
+
+

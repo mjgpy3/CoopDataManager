@@ -1,0 +1,56 @@
+<html>
+  <head>
+  </head>
+  <body>
+      <h1>Semester</h1>
+        <table border="1">
+          <tr><th>ROWID</th><th>FallOrSpring</th><th>Year</th></tr>
+          <tr><td>1</td><td>Fall</td><td>2012</td></tr>
+          <tr><td>2</td><td>None</td><td>2013</td></tr>
+          <tr><td>3</td><td>Spring</td><td>2013</td></tr>
+          <tr><td>4</td><td>Spring</td><td>345</td></tr>
+        </table>
+      <h1>Parent</h1>
+        <table border="1">
+          <tr><th>ROWID</th><th>LastName</th><th>FirstName</th></tr>
+          <tr><td>1</td><td>Struedel</td><td>John</td></tr>
+          <tr><td>2</td><td>Muffin</td><td>Struedel</td></tr>
+          <tr><td>3</td><td>Gilliland</td><td>Justine</td></tr>
+        </table>
+      <h1>Student</h1>
+        <table border="1">
+          <tr><th>ROWID</th><th>LastName</th><th>FirstName</th><th>Parent1Id</th><th>Parent2Id</th><th>Grade</th></tr>
+          <tr><td>1</td><td>Billy</td><td>Struedel</td><td>1</td><td>2</td><td>Pre-K</td></tr>
+          <tr><td>2</td><td>Gilliland</td><td>Michael</td><td>1</td><td>2</td><td>12</td></tr>
+          <tr><td>3</td><td>Gilliland</td><td>Josh</td><td>3</td><td>None</td><td>9</td></tr>
+          <tr><td>4</td><td>Gilliland</td><td>Mikey</td><td>3</td><td>None</td><td>12</td></tr>
+        </table>
+      <h1>Class</h1>
+        <table border="1">
+          <tr><th>ROWID</th><th>Name</th><th>Hour</th><th>Cost</th><th>GradeMin</th><th>GradeMax</th><th>MaxNumberOfStudents</th><th>SemesterId</th></tr>
+          <tr><td>1</td><td>Lego Building</td><td>3</td><td>7</td><td>Pre-K</td><td>7</td><td>16</td><td>1</td></tr>
+          <tr><td>2</td><td>LOTR Book Study</td><td>4</td><td>8</td><td>5</td><td>12</td><td>12</td><td>1</td></tr>
+        </table>
+      <h1>Enrollment</h1>
+        <table border="1">
+          <tr><th>ROWID</th><th>StudentId</th><th>ClassId</th></tr>
+          <tr><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td>2</td><td>1</td><td>2</td></tr>
+          <tr><td>3</td><td>3</td><td>1</td></tr>
+          <tr><td>4</td><td>2</td><td>2</td></tr>
+          <tr><td>5</td><td>2</td><td>1</td></tr>
+          <tr><td>6</td><td>4</td><td>1</td></tr>
+        </table>
+      <h1>Teacher</h1>
+        <table border="1">
+          <tr><th>ROWID</th><th>ParentId</th><th>ClassId</th></tr>
+          <tr><td>1</td><td>3</td><td>1</td></tr>
+          <tr><td>2</td><td>2</td><td>2</td></tr>
+        </table>
+      <h1>Helper</h1>
+        <table border="1">
+          <tr><th>ROWID</th><th>ParentId</th><th>ClassId</th></tr>
+          <tr><td>1</td><td>1</td><td>2</td></tr>
+        </table>
+  </body>
+</html>
