@@ -8,4 +8,9 @@
     Enums for the views
 """
 
-table = {'Quit':1233, 'None':1234, 'New':1235, 'Edit':1236, 'Reports':1237}
+table = { 'Quit':1233, \
+          'None':1234, \
+          'New':1235, \
+          'Edit':1236, \
+          'Reports':1237, \
+          'Defaults':1238 }

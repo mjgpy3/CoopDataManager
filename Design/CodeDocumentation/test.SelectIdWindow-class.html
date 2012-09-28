@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>queries.SelectQuery</title>
+  <title>test.SelectIdWindow</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -34,8 +34,8 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        <a href="queries-module.html">Module&nbsp;queries</a> ::
-        Class&nbsp;SelectQuery
+        <a href="test-module.html">Module&nbsp;test</a> ::
+        Class&nbsp;SelectIdWindow
       </span>
     </td>
     <td>
@@ -45,22 +45,16 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="queries.SelectQuery-class.html"
+            >]&nbsp;|&nbsp;<a href="test.SelectIdWindow-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class SelectQuery</h1><p class="nomargin-top"><span class="codelink"><a href="queries-pysrc.html#SelectQuery">source&nbsp;code</a></span></p>
-<pre class="base-tree">
-<a href="queries.QueryObject-class.html">QueryObject</a> --+
-              |
-             <strong class="uidshort">SelectQuery</strong>
-</pre>
-
-<hr />
-<p>A query object for retriving data from the model.</p>
+<h1 class="epydoc">Class SelectIdWindow</h1><p class="nomargin-top"><span class="codelink"><a href="test-pysrc.html#SelectIdWindow">source&nbsp;code</a></span></p>
+<p>A window used for selecting a foreign tuple, of which the key (ROWID) 
+  is desired.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -85,10 +79,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="queries.SelectQuery-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">model_abstraction</span>)</span></td>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">hidden</span>=<span class="summary-sig-default">True</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="queries-pysrc.html#SelectQuery.__init__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="test-pysrc.html#SelectIdWindow.__init__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -102,11 +96,66 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="get_all_data_from_table"></a><span class="summary-sig-name">get_all_data_from_table</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">table_name</span>)</span><br />
-      Returns all data from a passed table name</td>
+          <td><span class="summary-sig"><a href="test.SelectIdWindow-class.html#add_table_data" class="summary-sig-name">add_table_data</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">table_data</span>)</span><br />
+      Adds all necessary table data to the window.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="queries-pysrc.html#SelectQuery.get_all_data_from_table">source&nbsp;code</a></span>
+            <span class="codelink"><a href="test-pysrc.html#SelectIdWindow.add_table_data">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="change_made"></a><span class="summary-sig-name">change_made</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">sender</span>,
+        <span class="summary-sig-arg">tuple_number</span>)</span><br />
+      Sets the correct ROWID when a user selects a differing one</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="test-pysrc.html#SelectIdWindow.change_made">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="id_found"></a><span class="summary-sig-name">id_found</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">sender</span>)</span><br />
+      Triggered when a user actually finds the ID they want</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="test-pysrc.html#SelectIdWindow.id_found">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="cancel_selection"></a><span class="summary-sig-name">cancel_selection</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">sender</span>)</span><br />
+      Triggered when a user wants to quit browsing for an id</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="test-pysrc.html#SelectIdWindow.cancel_selection">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -133,27 +182,24 @@
   </td>
 </tr>
 </table>
-<a name="__init__"></a>
+<a name="add_table_data"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">model_abstraction</span>)</span>
-    <br /><em class="fname">(Constructor)</em>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add_table_data</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">table_data</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="queries-pysrc.html#SelectQuery.__init__">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="test-pysrc.html#SelectIdWindow.add_table_data">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  
+  <p>Adds all necessary table data to the window. Ought to be used before 
+  displaying.</p>
   <dl class="fields">
-    <dt>Overrides:
-        <a href="queries.QueryObject-class.html#__init__">QueryObject.__init__</a>
-    </dt>
   </dl>
 </td></tr></table>
 </div>

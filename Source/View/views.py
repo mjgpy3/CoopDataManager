@@ -21,6 +21,24 @@ import reports
 from controller_exceptions import *
 from config_handler import *
 
+
+class GladeWindow:
+    """
+        The parent class for many windows, handling the glade views
+    """
+    def __init__(self, glade_file):
+        self.glade_file = glade_file
+        self.wTree = gtk.glade.XML(self.glade_file)
+
+    def connect_widget_by_name(self, name, event, function, *args):
+        """
+            Connects a passed widget, specified by name to the passed function and then
+            returns the widget with the name of name.
+        """
+        widget = self.wTree.get_widget(name)
+        widget.connect(event, function, *args)
+        return widget
+
 class MainWindow:
     """ 
         The main window of the GUI. This is where the user selects the table they want to modify and they determine what they
@@ -38,10 +56,13 @@ class MainWindow:
         # Get the widgets from the wTree
         self.window = self.wTree.get_widget('wdwMain')
         self.cmb_selected_table = self.wTree.get_widget('cmbSelectedTable')
+
+        # Get the buttons
         self.btn_quit = self.wTree.get_widget('btnQuit')
         self.btn_edit = self.wTree.get_widget('btnEdit')
         self.btn_new = self.wTree.get_widget('btnNew')
         self.btn_reports = self.wTree.get_widget('btnReports')
+        self.btn_defaults = self.wTree.get_widget('btnDefaults')
 
         # Fill the combobox with the table names
         self.cmb_selected_table.set_active(0)
@@ -57,6 +78,7 @@ class MainWindow:
         self.btn_edit.connect('clicked', self.edit_table)
         self.btn_new.connect('clicked', self.create_new_entry)
         self.btn_reports.connect('clicked', self.generate_reports)
+        self.btn_defaults.connect('clicked', self.edit_defaults)
 
     def end_this_window(self, sender):
         """
@@ -89,10 +111,14 @@ class MainWindow:
         """
             Handles the "New" button when it is clicked.
         """
-        if self.cmb_selected_table.get_active() != 0:
-            self.current_action = actions.table['New']
-        else:
-            self.current_action = actions.table['None']
+        self.set_action_if_real_table_selected(actions.table['New'])
+        gtk.main_quit()
+
+    def edit_defaults(self, sender):
+        """
+            Handles the "Defaults" button when it is clicked
+        """
+        self.set_action_if_real_table_selected(actions.table['Defaults'])
         gtk.main_quit()
 
     def generate_reports(self, sender):
@@ -101,6 +127,16 @@ class MainWindow:
         """
         self.current_action = actions.table['Reports']
         gtk.main_quit()
+
+    def set_action_if_real_table_selected(self, action):
+        """
+            Sets the current action to the passed iff a valid
+            table is selected.
+        """
+        if self.cmb_selected_table.get_active() != 0:
+            self.current_action = action
+        else:
+            self.current_action = actions.table['None']
 
 class NewTableWindow:
     """
@@ -414,5 +450,7 @@ if __name__ == '__main__':
             reports_window.window.hide()
             if reports_window.current_action not in [actions.table['Quit'], actions.table['None']]:
                 reports_window.highlighted.generator()
+        elif main_window.current_action == actions.table['Defaults']:
+            print "Valid Defaults Clicked"
         elif main_window.current_action == actions.table['Quit']:
             break
